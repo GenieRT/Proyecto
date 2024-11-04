@@ -1,4 +1,5 @@
 ﻿using ProyectoIntegradorLibreria.Entities;
+using ProyectoIntegradorLibreria.InterfacesRepositorios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
