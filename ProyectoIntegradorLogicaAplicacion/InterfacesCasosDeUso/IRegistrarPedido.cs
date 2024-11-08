@@ -9,6 +9,6 @@ namespace ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso
 {
     public interface IRegistrarPedido
     {
-        public PedidoDTO addPedido(PedidoDTO pedido);
+        public PedidoDTO addPedido(PedidoDTO pedido); 
     }
 }

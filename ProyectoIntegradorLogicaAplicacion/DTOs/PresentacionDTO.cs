@@ -10,6 +10,6 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
     {
         public int Id { get; set; }
         public string Descripcion { get; set; }
-        public string Unidad { get; set; }
+        public string Unidad { get; set; }  
     }
 }

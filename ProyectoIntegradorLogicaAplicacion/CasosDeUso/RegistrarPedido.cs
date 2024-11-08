@@ -25,8 +25,14 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
             {
                 Fecha = pedido.Fecha,
                 Estado = "Pendiente",
-                Cliente = pedido.Cliente
             };
+            Cliente cliente = new Cliente()
+            {
+                NumeroCliente = pedido.Cliente.NumeroCliente,
+                RazonSocial = pedido.Cliente.RazonSocial,
+                Estado = pedido.Cliente.Estado
+            };
+       
             if(pedido.Productos != null)
             {
                 aCrear.Productos = new List<LineaPedido>();

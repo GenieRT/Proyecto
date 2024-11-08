@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace ProyectoIntegradorLogicaAplicacion.DTOs
 {
-    public class PedidoDTO
+    public class ClienteDTO
     {
-        public int Id { get; set; }
-        public DateTime Fecha { get; set; }
+        public int NumeroCliente { get; set; }
+        public string RazonSocial { get; set; }
         public string Estado { get; set; }
-        public List<LineaPedidoDTO> Productos { get; set; } = new List<LineaPedidoDTO>();
-        public ClienteDTO Cliente { get; set; }
+        public List<PedidoDTO> Pedidos { get; set; } = new List<PedidoDTO>();
     }
 }
- 

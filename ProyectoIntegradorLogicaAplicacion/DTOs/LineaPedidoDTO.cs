@@ -11,6 +11,6 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
     {
         public int IdProducto { get; set; }
         public PresentacionDTO Presentacion { get; set; }
-        public int Cantidad { get; set; }
+        public int Cantidad { get; set; }  
     }
 }
