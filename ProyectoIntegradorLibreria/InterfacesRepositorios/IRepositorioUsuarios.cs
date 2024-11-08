@@ -9,5 +9,10 @@ namespace ProyectoIntegradorLibreria.InterfacesRepositorios
 {
     public interface IRepositorioUsuarios : IRepositorio <Usuario>
     {
+        public bool FindBy(string email, string pass);
+
+        public Usuario Login(string email, string pass);
+
+        public Usuario Registro(string email, string pass);
     }
 }
