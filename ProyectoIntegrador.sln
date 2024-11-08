@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoIntegradorLibreria", "ProyectoIntegradorLibreria\ProyectoIntegradorLibreria.csproj", "{347D22DA-5F5B-4FB2-BCA7-B5E221B96B81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProyectoIntegradorLibreria", "ProyectoIntegradorLibreria\ProyectoIntegradorLibreria.csproj", "{347D22DA-5F5B-4FB2-BCA7-B5E221B96B81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoIntegradorAccessData", "ProyectoIntegradorAccessData\ProyectoIntegradorAccessData.csproj", "{8DA29F07-5F81-4C21-9A91-B4926ED01D9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProyectoIntegradorAccessData", "ProyectoIntegradorAccessData\ProyectoIntegradorAccessData.csproj", "{8DA29F07-5F81-4C21-9A91-B4926ED01D9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoIntegradorLogicaAplicacion", "ProyectoIntegradorLogicaAplicacion\ProyectoIntegradorLogicaAplicacion.csproj", "{304FDC3B-F956-4154-84F0-E0AC1C00539D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{8DA29F07-5F81-4C21-9A91-B4926ED01D9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DA29F07-5F81-4C21-9A91-B4926ED01D9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DA29F07-5F81-4C21-9A91-B4926ED01D9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{304FDC3B-F956-4154-84F0-E0AC1C00539D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{304FDC3B-F956-4154-84F0-E0AC1C00539D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{304FDC3B-F956-4154-84F0-E0AC1C00539D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{304FDC3B-F956-4154-84F0-E0AC1C00539D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
