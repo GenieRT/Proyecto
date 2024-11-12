@@ -16,7 +16,7 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         {
             _context = new ISUSAContext();
         }
-        public void Add(Usuario t)
+        public void Add(Usuario t) //TODO: el caso de uso llama a este metodo
         {
             throw new NotImplementedException();
         }
@@ -26,7 +26,7 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             throw new NotImplementedException();
         }
 
-        
+
 
         public void Remove(int id)
         {
@@ -37,13 +37,19 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         {
             throw new NotImplementedException();
         }
-        
+
         public bool FindByID(int id)
         {
             throw new NotImplementedException();
         }
 
-        public bool FindBy(string email, string pass) {
+        Usuario IRepositorio<Usuario>.FindByID(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool FindBy(string email, string pass)
+        {
             var buscar = _context.Usuarios.Where(u => u.Contraseña == pass && u.Email == email).SingleOrDefault();
 
             if (buscar == null)
@@ -55,24 +61,9 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
 
         public Usuario Login(string email, string pass)
         {
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(pass))
-            {
-                throw new UsuarioInvalidoException("El email o la contraseña no pueden estar vacíos.");
-            }
-
-            //consulta en la db
-            var usuarioExistente = FindByID(email, pass);
-
-            if (usuarioExistente)
-            {
-                var usuarioEnDb = _context.Usuarios.SingleOrDefault(u => u.Email == email && u.Contraseña == pass);
-                return usuarioEnDb;
-            }
-
-            return null; //si no encuentra el usu o la pass es incorrecta
+            throw new NotImplementedException();
         }
 
-        public Usuario Registro(Usuario u) { }
 
     }
 }
