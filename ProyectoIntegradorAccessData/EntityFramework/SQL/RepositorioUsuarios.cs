@@ -16,9 +16,22 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         {
             _context = new ISUSAContext();
         }
-        public void Add(Usuario t) //TODO: el caso de uso llama a este metodo
+
+        void IRepositorio<Usuario>.Add(Usuario u) //TODO: el caso de uso registro llama a este metodo
         {
-            throw new NotImplementedException();
+            try
+            {
+                var pass = u.Contraseña;
+                u.SetPassword(pass);
+                u.validar();
+                _context.Usuarios.Add(u);
+                _context.SaveChanges(); //nose pq da error, creo que es un problema en la clase context
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Hubo un error al agregar el usuario.", e);
+            }
         }
 
         public IEnumerable<Usuario> FindAll()
@@ -61,7 +74,11 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
 
         public Usuario Login(string email, string pass)
         {
-            throw new NotImplementedException();
+            string claveEncriptada = Usuario.ComputeSha256Hash(pass);
+
+            var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == email && u.EncriptedPassword == claveEncriptada);
+
+            return usuario;
         }
 
 
