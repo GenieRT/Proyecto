@@ -76,7 +76,7 @@ namespace ProyectoIntegradorWebApi2.Controllers
             }
         }
 
-      
+
 
         // Obtener un producto por su ID
         [HttpGet("{id}")]
