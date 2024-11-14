@@ -75,8 +75,7 @@ namespace ProyectoIntegradorLibreria.Entities
 
     }
 
-    //contructor vacio protected
-    //constructor con todos los datos que llame a Validar
+
 
     
     

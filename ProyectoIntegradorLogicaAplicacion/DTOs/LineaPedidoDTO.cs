@@ -23,4 +23,4 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
             this.Cantidad = linea.Cantidad;
         }
     }
-}
+}   
