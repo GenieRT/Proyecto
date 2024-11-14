@@ -11,6 +11,11 @@ namespace ProyectoIntegradorLibreria.Entities
         public int NumeroCliente { get; set; }
         public string RazonSocial { get; set; }
         public string Estado { get; set; }
-        public List<Pedido> Pedidos { get; set; } = new List<Pedido>();
+        public List<Pedido> Pedidos { get; set; } 
+
+        public Cliente() 
+        { 
+            Pedidos = new List<Pedido>();
+        }
     }
 }

@@ -10,5 +10,7 @@ namespace ProyectoIntegradorLibreria.Entities
     {
         public int NumeroEmpleado { get; set; }
 
+        public Empleado() { }
+
     }
 }

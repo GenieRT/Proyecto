@@ -11,5 +11,7 @@ namespace ProyectoIntegradorLibreria.Entities
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
         public int Toneladas { get; set; }
+
+        public TurnoCarga() { }
     }
 }

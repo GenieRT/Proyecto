@@ -13,9 +13,9 @@ namespace ProyectoIntegradorLibreria.Entities
         public string Rol { get; set; }
         public string Email { get; set; }
         public string Contraseña { get; set; }
-    }
+        public Usuario() { }
 
-    public void Validar()
+        /*public void Validar()
     {
 
         Regex regexMayuscula = new Regex("[A-Z]");
@@ -50,5 +50,14 @@ namespace ProyectoIntegradorLibreria.Entities
             throw new UsuarioInvalidoException("La contraseña debe tener un numero del 0 al 9");
         }
 
+    }*/
+
     }
+
+    //contructor vacio protected
+    //constructor con todos los datos que llame a Validar
+
+    
+    
+    
 }

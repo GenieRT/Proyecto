@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProyectoIntegradorLibreria.Entities;
-using ProyectoIntegradorLibreria.InterfacesRepositorios;
+using ProyectoIntegradorLogicaAplicacion.DTOs;
+using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
 
 namespace ProyectoIntegrador.WebApi.Controllers
 {
@@ -37,7 +37,7 @@ namespace ProyectoIntegrador.WebApi.Controllers
 
         // POST: api/v1/pedidos
         [HttpPost]
-        public IActionResult Create(Pedido pedido)
+        public IActionResult Post(PedidoDTO pedido)
         {
             if (pedido == null)
                 return BadRequest("El pedido no puede ser nulo.");

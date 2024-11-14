@@ -12,8 +12,35 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
         public string Estado { get; set; }
-        public List<LineaPedidoDTO> Productos { get; set; } = new List<LineaPedidoDTO>();
+        public List<LineaPedidoDTO> Productos { get; set; }
         public ClienteDTO Cliente { get; set; }
+
+        public int ClienteId { get; set; }
+
+        public PedidoDTO() 
+        { 
+           this.Productos = new List<LineaPedidoDTO>();
+        }
+        public PedidoDTO(Pedido pedido)
+        {
+           this.Id = pedido.Id;
+           this.Fecha = pedido.Fecha;
+           this.ClienteId = pedido.ClienteId;
+           this.Cliente = new ClienteDTO(pedido.Cliente);
+           this.Estado = pedido.Estado;
+
+           if(pedido != null)
+            {
+                if(pedido.Productos != null)
+                {
+                    foreach(LineaPedido lp in pedido.Productos)
+                    {
+                        Productos.Add(new LineaPedidoDTO(lp));
+                    }
+                }
+            }
+
+        }
     }
 }
  

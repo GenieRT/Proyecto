@@ -11,8 +11,15 @@ namespace ProyectoIntegradorLibreria.Entities
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
         public string Estado { get; set; }
-        public List<LineaPedido> Productos { get; set; } = new List<LineaPedido>();
+        public List<LineaPedido> Productos { get; set; }
         public Cliente Cliente { get; set; }
+
+        public int ClienteId { get; set; }
+
+        public Pedido() 
+        { 
+            Productos = new List<LineaPedido>();
+        }
 
     }
 }
