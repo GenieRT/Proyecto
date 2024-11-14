@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ProyectoIntegradorWebApi.Controllers
+namespace ProyectoIntegradorWebApi2.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
@@ -76,7 +76,7 @@ namespace ProyectoIntegradorWebApi.Controllers
             }
         }
 
-      
+
 
         // Obtener un producto por su ID
         [HttpGet("{id}")]

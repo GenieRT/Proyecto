@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso
 {
-    internal interface ILogin
+    public interface ILogin
     {
         public UsuarioDTO Login(string email, string pass);
     }

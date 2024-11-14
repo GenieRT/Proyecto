@@ -5,7 +5,7 @@ using ProyectoIntegradorLibreria.InterfacesRepositorios;
 using System;
 using System.Collections.Generic;
 
-namespace ProyectoIntegrador.WebApi.Controllers
+namespace ProyectoIntegrador.WebApi2.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
@@ -67,7 +67,7 @@ namespace ProyectoIntegrador.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult Create( Reserva reserva)
+        public IActionResult Create(Reserva reserva)
         {
             if (reserva == null)
             {

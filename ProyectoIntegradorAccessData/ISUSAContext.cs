@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoIntegradorAccesData
 {
-    public class ISUSAContext :DbContext
+    public class ISUSAContext : DbContext
     {
        
         public DbSet<Usuario> Usuarios { get; set; }
