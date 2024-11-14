@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProyectoIntegradorAccessDat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProyectoIntegradorLogicaAplicacion", "ProyectoIntegradorLogicaAplicacion\ProyectoIntegradorLogicaAplicacion.csproj", "{304FDC3B-F956-4154-84F0-E0AC1C00539D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiVersion3", "WebApiEuge\WebApiVersion3.csproj", "{0DA8F393-CA5A-461F-BB63-E0367D2EDE6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{304FDC3B-F956-4154-84F0-E0AC1C00539D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{304FDC3B-F956-4154-84F0-E0AC1C00539D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{304FDC3B-F956-4154-84F0-E0AC1C00539D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DA8F393-CA5A-461F-BB63-E0367D2EDE6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DA8F393-CA5A-461F-BB63-E0367D2EDE6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DA8F393-CA5A-461F-BB63-E0367D2EDE6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DA8F393-CA5A-461F-BB63-E0367D2EDE6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
