@@ -76,9 +76,9 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         {
             string claveEncriptada = Usuario.ComputeSha256Hash(pass);
 
-            var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == email && u.EncriptedPassword == claveEncriptada);
+            //var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == email && u.EncriptedPassword == claveEncriptada);
 
-            return usuario;
+            return new Usuario();
         }
 
 

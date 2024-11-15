@@ -21,5 +21,17 @@ namespace ProyectoIntegradorLibreria.Entities
             Productos = new List<LineaPedido>();
         }
 
+        public void Validar()
+        {
+            ValidarLista();
+        }
+        private void ValidarLista()
+        {
+            if (Productos == null || Productos.Count == 0)
+            {
+                throw new Exception("El pedido debe contener al menos un producto.");
+            }
+        }
+
     }
 }

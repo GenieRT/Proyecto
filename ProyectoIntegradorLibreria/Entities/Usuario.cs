@@ -23,9 +23,7 @@ namespace ProyectoIntegradorLibreria.Entities
 
         [Required]
         public string Contraseña { get; set; }
-    }
-
-    public void Validar()
+public void Validar()
     {
 
         }
@@ -74,6 +72,10 @@ namespace ProyectoIntegradorLibreria.Entities
             }
 
     }
+
+    }
+
+    
 
 
 

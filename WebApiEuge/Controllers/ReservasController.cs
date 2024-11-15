@@ -11,7 +11,7 @@ namespace ProyectoIntegrador.WebApi2.Controllers
     [ApiController]
     public class ReservasController : ControllerBase
     {
-        private readonly IRepositorioReservas _repositorioReservas;
+        /*private readonly IRepositorioReservas _repositorioReservas;
 
         public ReservasController(IRepositorioReservas repositorioReservas)
         {
@@ -113,6 +113,6 @@ namespace ProyectoIntegrador.WebApi2.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Hubo un error al actualizar la reserva.");
             }
-        }
+        }*/
     }
 }

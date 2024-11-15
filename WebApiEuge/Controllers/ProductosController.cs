@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProyectoIntegradorLibreria.Entities;
-using ProyectoIntegradorLibreria.InterfacesRepositorios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +10,7 @@ namespace ProyectoIntegradorWebApi2.Controllers
     [ApiController]
     public class ProductoController : ControllerBase
     {
-        private readonly IRepositorioProductos _repositorioProductos;
+       /* private readonly IRepositorioProductos _repositorioProductos;
 
         // Constructor inyectando el repositorio de productos
         public ProductoController(IRepositorioProductos repositorioProductos)
@@ -99,6 +97,6 @@ namespace ProyectoIntegradorWebApi2.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Hubo un error al obtener el producto.");
             }
-        }
+        }*/
     }
 }

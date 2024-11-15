@@ -1,4 +1,5 @@
-﻿using ProyectoIntegradorLibreria.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ProyectoIntegradorLibreria.Entities;
 using ProyectoIntegradorLibreria.InterfacesRepositorios;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,26 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         {
             _context = new ISUSAContext();
         }
-        public void Add(Pedido t)
+        void IRepositorio<Pedido>.Add(Pedido pedido)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (pedido.Productos != null)
+                {
+                    foreach(LineaPedido ln in pedido.Productos)
+                    {
+                        _context.Entry(ln).State = EntityState.Unchanged;
+                    }
+                }
+                pedido.Validar();
+                _context.Pedidos.Add(pedido);
+                _context.SaveChanges();
+
+            }catch(Exception ex)
+            {
+                throw new Exception("Error al hacer pedido" + ex.Message);
+            }
+
         }
 
         public IEnumerable<Pedido> FindAll()

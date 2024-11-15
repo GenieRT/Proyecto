@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProyectoIntegradorLibreria.Entities;
-using ProyectoIntegradorLibreria.InterfacesRepositorios;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +9,7 @@ namespace ProyectoIntegrador.WebApi2.Controllers
     [ApiController]
     public class EmpleadosController : ControllerBase
     {
-        private readonly IRepositorioUsuarios _repositorioEmpleados;
+       /* private readonly IRepositorioUsuarios _repositorioEmpleados;
 
         public EmpleadosController(IRepositorioUsuarios repositorioEmpleados)
         {
@@ -38,6 +36,6 @@ namespace ProyectoIntegrador.WebApi2.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Hubo un error al obtener los empleados.");
             }
-        }
+        }*/
     }
 }

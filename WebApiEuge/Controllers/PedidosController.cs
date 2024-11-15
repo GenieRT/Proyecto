@@ -8,7 +8,7 @@ namespace ProyectoIntegrador.WebApi2.Controllers
     [ApiController]
     public class PedidosController : ControllerBase
     {
-        private IRegistrarPedido _registrarPedido;
+        private readonly IRegistrarPedido _registrarPedido;
 
         public PedidosController(IRegistrarPedido registrarPedido)
         {
@@ -37,13 +37,13 @@ namespace ProyectoIntegrador.WebApi2.Controllers
 
         // POST: api/v1/pedidos
         [HttpPost]
-        public IActionResult Post([FromBody] PedidoDTO pedido)
+        public IActionResult Post ([FromBody] PedidoDTO pedido)
         {
             try
             {
-                PedidoDTO pedDto = this._registrarPedido.addPedido(pedido);
-                return Created("api/Pedido", pedDto);
-            }catch(Exception ex)
+                PedidoDTO pedDTO = this._registrarPedido.addPedido(pedido);
+                return Created("api/Pedidos", pedDTO);
+            }catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
