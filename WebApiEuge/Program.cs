@@ -30,6 +30,9 @@ namespace WebApiEuge
             //inicialización de casos de uso
             builder.Services.AddScoped<IRegistrarPedido, RegistrarPedidoCU>();
 
+            builder.Services.AddScoped<IRegistro, RegistroCU>();
+            builder.Services.AddScoped<ILogin, LoginCU>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

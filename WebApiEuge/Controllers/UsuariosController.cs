@@ -5,8 +5,8 @@ using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
 
 namespace WebApi2.Controllers
 {
-    //[Route("api/[controller]")]
-    //[ApiController]
+    [Route("api/[controller]")]
+    [ApiController]
     public class UsuarioController : ControllerBase
     {
         private IRegistro RegistroCU;
@@ -21,7 +21,7 @@ namespace WebApi2.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         // POST api/<UsuarioController>
-        [HttpPost]
+        [HttpPost("Registro")]
         public ActionResult Post([FromBody] UsuarioDTO usuario)
         {
             try
@@ -44,7 +44,8 @@ namespace WebApi2.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         // GET: api/<UsuarioController>
         //[HttpGet("IniciarSesion/{email}/{pass}", Name = "Login")]
-        public ActionResult Login(string email, string pass)
+        [HttpGet("IniciarSesion")]
+        public ActionResult Login([FromQuery] string email, [FromQuery] string pass)
         {
             try
             {
