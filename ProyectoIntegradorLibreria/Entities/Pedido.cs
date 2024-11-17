@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace ProyectoIntegradorLibreria.Entities
         public List<LineaPedido> Productos { get; set; }
         public Cliente Cliente { get; set; }
 
-        public int ClienteId { get; set; }
+        [ForeignKey (nameof (Cliente))] public int ClienteId { get; set; }
 
         public Pedido() 
         { 

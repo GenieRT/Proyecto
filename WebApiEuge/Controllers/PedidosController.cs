@@ -2,7 +2,7 @@
 using ProyectoIntegradorLogicaAplicacion.DTOs;
 using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
 
-namespace ProyectoIntegrador.WebApi2.Controllers
+namespace ProyectoIntegrador.WebApiVersion3.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]

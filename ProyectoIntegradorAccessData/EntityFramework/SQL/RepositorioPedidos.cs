@@ -17,27 +17,51 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         {
             _context = new ISUSAContext();
         }
-        void IRepositorio<Pedido>.Add(Pedido pedido)
+        public void Add(Pedido pedido)
         {
             try
             {
-                if (pedido.Productos != null)
+                if (pedido.Id > 0) // Verifica si el pedido ya existe
                 {
-                    foreach(LineaPedido ln in pedido.Productos)
+                    var existingPedido = _context.Pedidos
+                        .Include(p => p.Productos)
+                        .FirstOrDefault(p => p.Id == pedido.Id);
+
+                    if (existingPedido != null)
                     {
-                        _context.Entry(ln).State = EntityState.Unchanged;
+                        // Reemplazar la lista de productos
+                        existingPedido.Productos.Clear();
+                        foreach (var linea in pedido.Productos)
+                        {
+                            existingPedido.Productos.Add(linea);
+                        }
+
+                        // Actualizar el pedido
+                        _context.Entry(existingPedido).State = EntityState.Modified;
                     }
                 }
-                pedido.Validar();
-                _context.Pedidos.Add(pedido);
+                else
+                {
+                    // Nuevo pedido, simplemente agregarlo
+                    _context.Pedidos.Add(pedido);
+                }
+
+                // Guardar cambios
                 _context.SaveChanges();
-
-            }catch(Exception ex)
-            {
-                throw new Exception("Error al hacer pedido" + ex.Message);
             }
-
+            catch (Exception ex)
+            {
+                throw new Exception("Error al hacer pedido: " + ex.Message);
+            }
         }
+
+
+        public Usuario GetClienteById(int id)
+        {
+            return _context.Usuarios.FirstOrDefault(c => c.Id == id);
+        }
+
+
 
         public IEnumerable<Pedido> FindAll()
         {
@@ -58,5 +82,7 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

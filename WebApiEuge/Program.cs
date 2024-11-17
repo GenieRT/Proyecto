@@ -1,4 +1,9 @@
 
+using ProyectoIntegradorAccesData.EntityFramework.SQL;
+using ProyectoIntegradorLibreria.InterfacesRepositorios;
+using ProyectoIntegradorLogicaAplicacion.CasosDeUso;
+using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
+
 namespace WebApiEuge
 {
     public class Program
@@ -13,6 +18,17 @@ namespace WebApiEuge
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            //inicializacion de repositorios
+            builder.Services.AddScoped<IRepositorioPedidos, RepositorioPedidos>();
+            builder.Services.AddScoped<IRepositorioPresentaciones, RepositorioPresentaciones>();
+            builder.Services.AddScoped<IRepositorioProductos, RepositorioProductos>();
+            builder.Services.AddScoped<IRepositorioReservas, RepositorioReservas>();
+            builder.Services.AddScoped<IRepositorioTurnosCarga, RepositorioTurnosCarga>();
+            builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuarios>();
+
+            //inicialización de casos de uso
+            builder.Services.AddScoped<IRegistrarPedido, RegistrarPedidoCU>();
 
             var app = builder.Build();
 

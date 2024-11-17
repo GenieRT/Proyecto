@@ -27,15 +27,9 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
             this.RazonSocial = cliente.RazonSocial;
             this.Estado = cliente.Estado;
 
-            if(cliente != null)
+            if (cliente?.Pedidos != null)
             {
-                if (cliente.Pedidos != null)
-                {
-                    foreach(Pedido p in cliente.Pedidos)
-                    {
-                        Pedidos.Add(new PedidoDTO(p));
-                    }
-                }
+                this.Pedidos = cliente.Pedidos.Select(p => new PedidoDTO(p)).ToList();
             }
         }
     }

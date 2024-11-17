@@ -29,15 +29,9 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
            this.Cliente = new ClienteDTO(pedido.Cliente);
            this.Estado = pedido.Estado;
 
-           if(pedido != null)
+            if (pedido?.Productos != null) 
             {
-                if(pedido.Productos != null)
-                {
-                    foreach(LineaPedido lp in pedido.Productos)
-                    {
-                        Productos.Add(new LineaPedidoDTO(lp));
-                    }
-                }
+                this.Productos = pedido.Productos.Select(lp => new LineaPedidoDTO(lp)).ToList();
             }
 
         }

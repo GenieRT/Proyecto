@@ -13,6 +13,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
         public string Descripcion { get; set; }
         public string Unidad { get; set; }  
 
+        public PresentacionDTO() { }
         public PresentacionDTO(Presentacion presentacion) 
         { 
             this.Id = presentacion.Id;
