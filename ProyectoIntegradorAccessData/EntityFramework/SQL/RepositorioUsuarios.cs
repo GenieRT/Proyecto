@@ -25,12 +25,13 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
                 u.SetPassword(pass);
                 u.validar();
                 _context.Usuarios.Add(u);
-                _context.SaveChanges(); //nose pq da error, creo que es un problema en la clase context
+                _context.SaveChanges();
 
             }
             catch (Exception e)
             {
-                throw new Exception("Hubo un error al agregar el usuario.", e);
+                Console.WriteLine($"Error interno: {e.InnerException?.Message}");
+                throw new Exception($"Hubo un error al agregar el usuario: {e.Message}", e);
             }
         }
 

@@ -23,10 +23,11 @@ namespace ProyectoIntegradorLibreria.Entities
 
         [Required]
         public string Contraseña { get; set; }
-public void Validar()
-    {
 
-        }
+        [Required]
+        public string EncriptedPassword { get; private set; }
+
+        public Usuario() { }
 
         public void validar() {
             validarPass();
@@ -70,8 +71,9 @@ public void Validar()
             {
                 throw new Exception("La contraseña no cumple con los requisitos...");
             }
-
-    }
+            this.Contraseña = password; // Aunque no es recomendable guardar esto
+            this.EncriptedPassword = ComputeSha256Hash(password); // Encriptar y almacenar
+        }
 
     }
 
