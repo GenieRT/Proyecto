@@ -8,7 +8,7 @@ namespace ProyectoIntegradorLibreria.Entities
 {
     public class Empleado : Usuario
     {
-        public int NumeroEmpleado { get; set; }
+        public int? NumeroEmpleado { get; set; }
 
         public Empleado() { }
 

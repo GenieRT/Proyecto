@@ -9,6 +9,8 @@ namespace ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso
 {
     public interface IRegistro
     {
-        public UsuarioDTO AddUser(UsuarioDTO usuario);
+        UsuarioDTO BuscarUsuarioPorEmail(string email);
+        void ActualizarContraseña(string email, string nuevaContraseña);
     }
+
 }

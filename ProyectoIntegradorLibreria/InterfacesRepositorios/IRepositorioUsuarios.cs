@@ -9,6 +9,7 @@ namespace ProyectoIntegradorLibreria.InterfacesRepositorios
 {
     public interface IRepositorioUsuarios : IRepositorio<Usuario>
     {
+        Usuario? FindByEmail(string email);
         public Usuario Login(string email, string pass);
     }
 }

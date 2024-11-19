@@ -18,27 +18,62 @@ namespace WebApi2.Controllers
             LoginCU = loginCU;
         }
 
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        // POST api/<UsuarioController>
-        [HttpPost("Registro")]
-        public ActionResult Post([FromBody] UsuarioDTO usuario)
-        {
-            try
-            {
-                if (usuario == null || string.IsNullOrWhiteSpace(usuario.Email) || string.IsNullOrWhiteSpace(usuario.Contraseña) || string.IsNullOrWhiteSpace(usuario.Nombre) || string.IsNullOrWhiteSpace(usuario.Rol))
-                {
-                    return BadRequest("Los datos del usuario son requeridos.");
-                }
+         [HttpPut("ActualizarContraseña")]
+         public ActionResult ActualizarContraseña([FromBody] ActualizarContrasenaDTO datos)
+         {
+             try
+             {
+                 // Validar los datos recibidos
+                 if (string.IsNullOrWhiteSpace(datos.Email) || string.IsNullOrWhiteSpace(datos.NuevaContraseña))
+                 {
+                     return BadRequest("El email y la nueva contraseña son requeridos.");
+                 }
 
-                RegistroCU.AddUser(usuario);
-                return Ok(usuario);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(400, ex.Message);
-            }
-        }
+                 // Buscar el usuario por email desde el caso de uso (que usará el repositorio internamente)
+                 var usuario = RegistroCU.BuscarUsuarioPorEmail(datos.Email);
+                 if (usuario == null)
+                 {
+                     return NotFound("Usuario no encontrado.");
+                 }
+
+                 // Actualizar la contraseña
+                 RegistroCU.ActualizarContraseña(datos.Email, datos.NuevaContraseña);
+
+                 return Ok("Contraseña actualizada con éxito.");
+             }
+             catch (Exception ex)
+             {
+                 return StatusCode(500, $"Error internoOO: {ex.Message}");
+             }
+         }
+      
+
+      
+
+
+
+
+        /*   [ProducesResponseType(StatusCodes.Status200OK)]
+           [ProducesResponseType(StatusCodes.Status400BadRequest)]
+           // POST api/<UsuarioController>
+           [HttpPost("Registro")]
+           public ActionResult Post([FromBody] UsuarioDTO usuario)
+           {
+               try
+               {
+                   if (usuario == null || string.IsNullOrWhiteSpace(usuario.Email) || string.IsNullOrWhiteSpace(usuario.Contraseña) || string.IsNullOrWhiteSpace(usuario.Nombre) || string.IsNullOrWhiteSpace(usuario.Rol))
+                   {
+                       return BadRequest("Los datos del usuario son requeridos.");
+                   }
+
+                   RegistroCU.AddUser(usuario);
+                   return Ok(usuario);
+               }
+               catch (Exception ex)
+               {
+                   return StatusCode(400, ex.Message);
+               }
+           } */
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

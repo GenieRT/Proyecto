@@ -17,7 +17,7 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             _context = new ISUSAContext();
         }
 
-        void IRepositorio<Usuario>.Add(Usuario u) //TODO: el caso de uso registro llama a este metodo
+        void IRepositorio<Usuario>.Add(Usuario u) //TODO: borrar luego
         {
             try
             {
@@ -33,7 +33,7 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
                 Console.WriteLine($"Error interno: {e.InnerException?.Message}");
                 throw new Exception($"Hubo un error al agregar el usuario: {e.Message}", e);
             }
-        }
+        } 
 
         public IEnumerable<Usuario> FindAll()
         {
@@ -47,14 +47,16 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             throw new NotImplementedException();
         }
 
-        public void Update(Usuario t)
+        public void Update(Usuario usuario)
         {
-            throw new NotImplementedException();
+            _context.Usuarios.Update(usuario);
+            _context.SaveChanges();
         }
 
-        public bool FindByID(int id)
+
+        public Usuario? FindByID(int id)
         {
-            throw new NotImplementedException();
+            return _context.Usuarios.Find(id);
         }
 
         Usuario IRepositorio<Usuario>.FindByID(int id)
@@ -82,6 +84,10 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             return new Usuario();
         }
 
+        public Usuario? FindByEmail(string email)
+        {
+            return _context.Usuarios.FirstOrDefault(u => u.Email == email);
+        }
 
     }
 }

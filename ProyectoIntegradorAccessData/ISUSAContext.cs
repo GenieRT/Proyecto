@@ -10,7 +10,7 @@ namespace ProyectoIntegradorAccesData
 {
     public class ISUSAContext : DbContext
     {
-       
+
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<Presentacion> Presentacions { get; set; }
@@ -30,6 +30,26 @@ namespace ProyectoIntegradorAccesData
         {
             base.OnModelCreating(modelBuilder);
 
+
+modelBuilder.Entity<Usuario>()
+            .HasDiscriminator<string>("Discriminator")
+            .HasValue<Usuario>("Usuario") // Valor por defecto para usuarios genéricos
+            .HasValue<Cliente>("Cliente") // Discriminador para Cliente
+            .HasValue<Empleado>("Empleado"); // Discriminador para Empleado
+
+            // Configuración para Cliente
+            modelBuilder.Entity<Cliente>()
+                .HasBaseType<Usuario>()
+                .HasDiscriminator<string>("Discriminator")
+                .HasValue<Cliente>("Cliente");
+
+            // Configuración para Empleado
+            modelBuilder.Entity<Empleado>()
+                .HasBaseType<Usuario>()
+                .HasDiscriminator<string>("Discriminator")
+                .HasValue<Empleado>("Empleado");
+
+            
 
             modelBuilder.Entity<LineaPedido>()
                 .HasOne(lp => lp.Pedido)
@@ -52,9 +72,9 @@ namespace ProyectoIntegradorAccesData
 
             modelBuilder.Entity<Pedido>()
             .HasOne(p => p.Cliente)
-    .       WithMany()
+    .WithMany()
             .HasForeignKey(p => p.ClienteId)
-    .       OnDelete(DeleteBehavior.Restrict); // Cambia Cascade por Restrict
+    .OnDelete(DeleteBehavior.Restrict); // Cambia Cascade por Restrict
 
             modelBuilder.Entity<Reserva>()
             .HasOne(r => r.Pedido)

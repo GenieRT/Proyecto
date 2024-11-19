@@ -8,9 +8,9 @@ namespace ProyectoIntegradorLibreria.Entities
 {
     public class Cliente : Usuario
     {
-        public int NumeroCliente { get; set; }
-        public string RazonSocial { get; set; }
-        public string Estado { get; set; }
+        public int? NumeroCliente { get; set; }
+        public string? RazonSocial { get; set; }
+        public string? Estado { get; set; }
         public List<Pedido> Pedidos { get; set; } 
 
         public Cliente() 
