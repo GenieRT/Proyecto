@@ -27,9 +27,19 @@ namespace ProyectoIntegradorLibreria.Entities
         [Required]
         public string EncriptedPassword { get; private set; }
 
-        public Usuario() { }
+        public string? ConfirmationToken { get; set; }
+        public string? TemporalPassword { get; set; }
 
-        public void validar() {
+
+
+        public Usuario(Usuario usuario) { }
+
+        public Usuario()
+        {
+        }
+
+        public void validar()
+        {
             validarPass();
         }
 
@@ -77,11 +87,11 @@ namespace ProyectoIntegradorLibreria.Entities
 
     }
 
-    
 
 
 
-    
-    
-    
+
+
+
+
 }

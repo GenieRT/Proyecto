@@ -4,6 +4,7 @@ using ProyectoIntegradorLibreria.InterfacesRepositorios;
 using ProyectoIntegradorLogicaAplicacion.CasosDeUso;
 using ProyectoIntegradorLogicaAplicacion.DTOs;
 using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
+using WebApiVersion3.Services;
 
 namespace WebApiEuge
 {
@@ -46,6 +47,15 @@ namespace WebApiEuge
 
             builder.Services.AddScoped<IRegistro, RegistroCU>();
             builder.Services.AddScoped<ILogin, LoginCU>();
+
+            // Configura los servicios adicionales (email services)
+            builder.Services.AddScoped<IEmailService>(provider => new EmailService(
+                smtpServer: "smtp.gmail.com",            // Servidor SMTP de Gmail
+                smtpPort: 587,                           // Puerto seguro de Gmail
+                smtpUser: "soporte.isusa.t@gmail.com",     // Tu dirección de correo
+                smtpPassword: "knwywvayanfenjhq" // La contraseña de aplicación generada
+            ));
+
 
             var app = builder.Build();
 

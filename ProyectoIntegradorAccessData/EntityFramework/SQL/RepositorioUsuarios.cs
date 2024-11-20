@@ -33,7 +33,7 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
                 Console.WriteLine($"Error interno: {e.InnerException?.Message}");
                 throw new Exception($"Hubo un error al agregar el usuario: {e.Message}", e);
             }
-        } 
+        }
 
         public IEnumerable<Usuario> FindAll()
         {

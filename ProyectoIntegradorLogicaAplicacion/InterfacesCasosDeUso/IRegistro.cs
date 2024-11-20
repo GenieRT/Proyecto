@@ -1,4 +1,5 @@
-﻿using ProyectoIntegradorLogicaAplicacion.DTOs;
+﻿using ProyectoIntegradorLibreria.Entities;
+using ProyectoIntegradorLogicaAplicacion.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso
     {
         UsuarioDTO BuscarUsuarioPorEmail(string email);
         void ActualizarContraseña(string email, string nuevaContraseña);
+        void ActualizarUsuario(Usuario usuario);
+        Usuario BuscarUsuarioEntidadPorEmail(string email);
     }
 
 }
