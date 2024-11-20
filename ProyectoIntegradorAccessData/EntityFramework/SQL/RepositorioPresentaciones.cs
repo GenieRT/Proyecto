@@ -23,7 +23,7 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
 
         public IEnumerable<Presentacion> FindAll()
         {
-            throw new NotImplementedException();
+            return _context.Presentacions;
         }
 
         public Presentacion FindByID(int id)

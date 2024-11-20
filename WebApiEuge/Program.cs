@@ -2,6 +2,7 @@
 using ProyectoIntegradorAccesData.EntityFramework.SQL;
 using ProyectoIntegradorLibreria.InterfacesRepositorios;
 using ProyectoIntegradorLogicaAplicacion.CasosDeUso;
+using ProyectoIntegradorLogicaAplicacion.DTOs;
 using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
 
 namespace WebApiEuge
@@ -12,14 +13,25 @@ namespace WebApiEuge
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            builder.Services.AddHttpClient();
 
+            // Configurar CORS para permitir el acceso desde el frontend de React
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowReactApp", policy =>
+                {
+                    policy.WithOrigins("http://localhost:3000")  // URL del frontend de React
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
+
+            // Add services to the container.
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            //inicializacion de repositorios
+            // Inicialización de repositorios
             builder.Services.AddScoped<IRepositorioPedidos, RepositorioPedidos>();
             builder.Services.AddScoped<IRepositorioPresentaciones, RepositorioPresentaciones>();
             builder.Services.AddScoped<IRepositorioProductos, RepositorioProductos>();
@@ -27,12 +39,14 @@ namespace WebApiEuge
             builder.Services.AddScoped<IRepositorioTurnosCarga, RepositorioTurnosCarga>();
             builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuarios>();
 
-            //inicialización de casos de uso
+            // Inicialización de casos de uso
             builder.Services.AddScoped<IRegistrarPedido, RegistrarPedidoCU>();
+            builder.Services.AddScoped<IListarProductos, ListarProductosCU>();
+            builder.Services.AddScoped<IListarPresentaciones, ListarPresentacionesCU>();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configurar el pipeline de solicitudes HTTP.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -41,8 +55,10 @@ namespace WebApiEuge
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            // Aplicar la política de CORS
+            app.UseCors("AllowReactApp");
 
+            app.UseAuthorization();
 
             app.MapControllers();
 

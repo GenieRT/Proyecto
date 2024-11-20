@@ -13,7 +13,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
         public DateTime Fecha { get; set; }
         public string Estado { get; set; }
         public List<LineaPedidoDTO> Productos { get; set; }
-        public ClienteDTO Cliente { get; set; }
+        public ClienteDTO ? Cliente { get; set; }
 
         public int ClienteId { get; set; }
 

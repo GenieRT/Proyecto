@@ -24,7 +24,7 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
 
         public IEnumerable<Producto> FindAll()
         {
-            throw new NotImplementedException();
+            return _context.Productos;
         }
 
         public Producto FindByID(int id)

@@ -8,7 +8,7 @@ namespace ProyectoIntegrador.WebApiVersion3.Controllers
     [ApiController]
     public class PedidosController : ControllerBase
     {
-        private readonly IRegistrarPedido _registrarPedido;
+        private IRegistrarPedido _registrarPedido;
 
         public PedidosController(IRegistrarPedido registrarPedido)
         {
@@ -37,6 +37,8 @@ namespace ProyectoIntegrador.WebApiVersion3.Controllers
 
         // POST: api/v1/pedidos
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Post ([FromBody] PedidoDTO pedido)
         {
             try

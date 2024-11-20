@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,31 @@ namespace ProyectoIntegradorWebApi2.Controllers
     [ApiController]
     public class ProductoController : ControllerBase
     {
-       /* private readonly IRepositorioProductos _repositorioProductos;
+
+        private IListarProductos _listarProductos;
+
+        public ProductoController(IListarProductos listarProductos)
+        {
+            _listarProductos = listarProductos;
+        }
+
+// Obtener todos los productos
+        [HttpGet(Name ="GetProductos")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult Get()
+        {
+            try
+            {
+
+                return Ok(_listarProductos.ListarProductos());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /* private readonly IRepositorioProductos _repositorioProductos;
 
         // Constructor inyectando el repositorio de productos
         public ProductoController(IRepositorioProductos repositorioProductos)
@@ -18,29 +43,7 @@ namespace ProyectoIntegradorWebApi2.Controllers
             _repositorioProductos = repositorioProductos;
         }
 
-        // Obtener todos los productos
-        [HttpGet("todos")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetAll()
-        {
-            try
-            {
-                var productos = _repositorioProductos.FindAll();
-
-                // Verificar si se encontraron productos
-                if (productos == 0)// buscar como verificar
-                {
-                    return StatusCode(204, "No se encontraron productos.");
-                }
-
-                return Ok(productos);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Hubo un error al obtener los productos.");
-            }
-        }
+        
 
         // Obtener productos filtrados por nombre
         [HttpGet("filtro/nombre")]
