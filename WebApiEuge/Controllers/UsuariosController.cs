@@ -32,11 +32,25 @@ namespace WebApi2.Controllers
                     return BadRequest("El email y la nueva contraseña son requeridos.");
                 }
 
-                // Buscar el usuario por email desde el caso de uso (que usará el repositorio internamente)
+              
                 var usuario = RegistroCU.BuscarUsuarioPorEmail(datos.Email);
                 if (usuario == null)
                 {
                     return NotFound("Usuario no encontrado.");
+                }
+
+                //entidad usuario
+                var usuarioEnt = RegistroCU.BuscarUsuarioEntidadPorEmail(datos.Email);
+                // asignacion temporal
+                usuarioEnt.Contraseña = datos.NuevaContraseña;
+
+                try
+                {
+                    usuarioEnt.Validar(); //valida la contrasena en una etapa temprana
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest($"Contraseña inválida: {ex.Message}");
                 }
 
                 // Actualizar la contraseña
@@ -102,29 +116,6 @@ namespace WebApi2.Controllers
 
 
 
-
-        /*   [ProducesResponseType(StatusCodes.Status200OK)]
-           [ProducesResponseType(StatusCodes.Status400BadRequest)]
-           // POST api/<UsuarioController>
-           [HttpPost("Registro")]
-           public ActionResult Post([FromBody] UsuarioDTO usuario)
-           {
-               try
-               {
-                   if (usuario == null || string.IsNullOrWhiteSpace(usuario.Email) || string.IsNullOrWhiteSpace(usuario.Contraseña) || string.IsNullOrWhiteSpace(usuario.Nombre) || string.IsNullOrWhiteSpace(usuario.Rol))
-                   {
-                       return BadRequest("Los datos del usuario son requeridos.");
-                   }
-
-                   RegistroCU.AddUser(usuario);
-                   return Ok(usuario);
-               }
-               catch (Exception ex)
-               {
-                   return StatusCode(400, ex.Message);
-               }
-           } */
-
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         // GET: api/<UsuarioController>
@@ -151,7 +142,12 @@ namespace WebApi2.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                if (ex.Message == "El email no está registrado." || ex.Message == "Contraseña incorrecta.")
+                {
+                    return Unauthorized(ex.Message);
+                }
+
+                return StatusCode(500, $"Error interno: {ex.Message}");
             }
         }
 

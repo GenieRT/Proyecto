@@ -38,12 +38,12 @@ namespace ProyectoIntegradorLibreria.Entities
         {
         }
 
-        public void validar()
+        public void Validar()
         {
-            validarPass();
+            ValidarPass();
         }
 
-        private void validarPass()
+        private void ValidarPass()
         {
             if (string.IsNullOrWhiteSpace(Contraseña))
             {

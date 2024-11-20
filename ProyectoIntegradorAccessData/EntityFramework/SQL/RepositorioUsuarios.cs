@@ -17,23 +17,6 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             _context = new ISUSAContext();
         }
 
-        void IRepositorio<Usuario>.Add(Usuario u) //TODO: borrar luego
-        {
-            try
-            {
-                var pass = u.Contraseña;
-                u.SetPassword(pass);
-                u.validar();
-                _context.Usuarios.Add(u);
-                _context.SaveChanges();
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Error interno: {e.InnerException?.Message}");
-                throw new Exception($"Hubo un error al agregar el usuario: {e.Message}", e);
-            }
-        }
 
         public IEnumerable<Usuario> FindAll()
         {
@@ -75,19 +58,20 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             return true;
         }
 
-        public Usuario Login(string email, string pass)
+        /*public Usuario Login(string email, string pass)
         {
             string claveEncriptada = Usuario.ComputeSha256Hash(pass);
-
-            //var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == email && u.EncriptedPassword == claveEncriptada);
-
-            return new Usuario();
-        }
+            return _context.Usuarios.FirstOrDefault(u => u.Email == email && u.EncriptedPassword == claveEncriptada);
+        }*/
 
         public Usuario? FindByEmail(string email)
         {
             return _context.Usuarios.FirstOrDefault(u => u.Email == email);
         }
 
+        public void Add(Usuario t)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
