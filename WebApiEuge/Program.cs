@@ -44,6 +44,9 @@ namespace WebApiEuge
             builder.Services.AddScoped<IListarProductos, ListarProductosCU>();
             builder.Services.AddScoped<IListarPresentaciones, ListarPresentacionesCU>();
 
+            builder.Services.AddScoped<IRegistro, RegistroCU>();
+            builder.Services.AddScoped<ILogin, LoginCU>();
+
             var app = builder.Build();
 
             // Configurar el pipeline de solicitudes HTTP.

@@ -19,7 +19,36 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
             this.repoUsuarios = repositorioUsuarios;
         }
 
-        public UsuarioDTO AddUser(UsuarioDTO usuario)
+        public UsuarioDTO BuscarUsuarioPorEmail(string email)
+        { 
+            var usuario = repoUsuarios.FindByEmail(email);
+            if (usuario == null)
+            {
+                return null;
+            }
+
+            return new UsuarioDTO(usuario);
+        }
+
+        public void ActualizarContraseña(string email, string nuevaContraseña)
+        {
+            var usuario = repoUsuarios.FindByEmail(email);
+            if (usuario == null)
+            {
+                throw new Exception("Usuario no encontrado.");
+            }
+
+            // Validar y actualizar la contraseña
+            usuario.SetPassword(nuevaContraseña);
+
+            // Guardar los cambios en la base de datos
+            repoUsuarios.Update(usuario);
+        }
+
+        
+
+
+       /* public UsuarioDTO AddUser(UsuarioDTO usuario)
         {
             Usuario nuevo = new Usuario();
             nuevo.Nombre = usuario.Nombre;
@@ -29,6 +58,6 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
             repoUsuarios.Add(nuevo);
 
             return new UsuarioDTO(nuevo);
-        }
+        } */
     }
 }
