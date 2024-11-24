@@ -6,11 +6,11 @@ namespace ProyectoIntegrador.WebApiVersion3.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class PedidosController : ControllerBase
+    public class PedidoController : ControllerBase
     {
         private IRegistrarPedido _registrarPedido;
 
-        public PedidosController(IRegistrarPedido registrarPedido)
+        public PedidoController(IRegistrarPedido registrarPedido)
         {
             _registrarPedido = registrarPedido;
         }

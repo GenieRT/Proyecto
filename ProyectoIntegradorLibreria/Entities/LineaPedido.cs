@@ -10,7 +10,7 @@ namespace ProyectoIntegradorLibreria.Entities
     public class LineaPedido
     {
         
-
+        public int Id { get; set; }
         [ForeignKey(nameof(Producto))] public int  ProductoId { get; set; }
 
         public Producto Producto { get; set; }
@@ -18,11 +18,6 @@ namespace ProyectoIntegradorLibreria.Entities
 
        [ForeignKey (nameof(Presentacion))] public int PresentacionId { get; set; }
         public int Cantidad { get; set; }
-
-        public Pedido? Pedido { get; set; }
-
-        [ForeignKey(nameof(Pedido))]
-        public int PedidoId { get; set; }
 
         public LineaPedido() { }
     }

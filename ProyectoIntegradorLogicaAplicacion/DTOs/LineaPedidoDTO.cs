@@ -18,9 +18,6 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
         public int PresentacionId { get; set; }
         public int Cantidad { get; set; }
 
-        public PedidoDTO? Pedido { get; set; }
-
-        public int PedidoId { get; set; }
 
         public LineaPedidoDTO(LineaPedido linea)
         {
@@ -29,8 +26,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
             this.PresentacionId = linea.PresentacionId;
             this.Presentacion = new PresentacionDTO(linea.Presentacion); 
             this.Cantidad = linea.Cantidad;
-            this.PedidoId = linea.PedidoId;
-            this.Pedido = linea.Pedido != null ? new PedidoDTO(linea.Pedido) : null; 
+           
         }
 
 

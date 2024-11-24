@@ -31,11 +31,11 @@ namespace ProyectoIntegradorAccesData
             base.OnModelCreating(modelBuilder);
 
 
-modelBuilder.Entity<Usuario>()
-            .HasDiscriminator<string>("Discriminator")
-            .HasValue<Usuario>("Usuario") // Valor por defecto para usuarios genéricos
-            .HasValue<Cliente>("Cliente") // Discriminador para Cliente
-            .HasValue<Empleado>("Empleado"); // Discriminador para Empleado
+            modelBuilder.Entity<Usuario>()
+                        .HasDiscriminator<string>("Discriminator")
+                        .HasValue<Usuario>("Usuario") // Valor por defecto para usuarios genéricos
+                        .HasValue<Cliente>("Cliente") // Discriminador para Cliente
+                        .HasValue<Empleado>("Empleado"); // Discriminador para Empleado
 
             // Configuración para Cliente
             modelBuilder.Entity<Cliente>()
@@ -49,20 +49,26 @@ modelBuilder.Entity<Usuario>()
                 .HasDiscriminator<string>("Discriminator")
                 .HasValue<Empleado>("Empleado");
 
-            
+            modelBuilder.Entity<Pedido>().HasMany(p => p.Productos);
 
-            modelBuilder.Entity<LineaPedido>()
-                .HasOne(lp => lp.Pedido)
-                .WithMany(p => p.Productos)
-                .HasForeignKey(lp => lp.PedidoId)
-                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Pedido>()
+             .HasOne(p => p.Cliente)
+     .WithMany()
+             .HasForeignKey(p => p.ClienteId)
+     .OnDelete(DeleteBehavior.Restrict); // Cambia Cascade por Restrict
+           
+            /* modelBuilder.Entity<LineaPedido>()
+       .HasOne(lp => lp.Pedido)
+       .WithMany(p => p.Productos)
+       .HasForeignKey(lp => lp.PedidoId)
+       .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<LineaPedido>()
-                .HasOne(lp => lp.Producto)
-                .WithMany()
-                .HasForeignKey(lp => lp.ProductoId)
-                .OnDelete(DeleteBehavior.Restrict);
-
+   modelBuilder.Entity<LineaPedido>()
+       .HasOne(lp => lp.Producto)
+       .WithMany()
+       .HasForeignKey(lp => lp.ProductoId)
+       .OnDelete(DeleteBehavior.Restrict);
+  */
 
             modelBuilder.Entity<Reserva>()
             .HasOne(r => r.Cliente)
@@ -70,11 +76,7 @@ modelBuilder.Entity<Usuario>()
             .HasForeignKey(r => r.ClienteId)
             .OnDelete(DeleteBehavior.Restrict); // Cambia Cascade por Restrict
 
-            modelBuilder.Entity<Pedido>()
-            .HasOne(p => p.Cliente)
-    .WithMany()
-            .HasForeignKey(p => p.ClienteId)
-    .OnDelete(DeleteBehavior.Restrict); // Cambia Cascade por Restrict
+
 
             modelBuilder.Entity<Reserva>()
             .HasOne(r => r.Pedido)
@@ -82,8 +84,8 @@ modelBuilder.Entity<Usuario>()
             .HasForeignKey(r => r.PedidoId)
             .OnDelete(DeleteBehavior.Restrict); // Cambia Cascade por Restrict
 
-            modelBuilder.Entity<LineaPedido>()
-            .HasKey(lp => new { lp.ProductoId, lp.PresentacionId, lp.PedidoId });
+            /*modelBuilder.Entity<LineaPedido>()
+            .HasKey(lp => new { lp.ProductoId, lp.PresentacionId, lp.PedidoId });*/
         }
 
     }

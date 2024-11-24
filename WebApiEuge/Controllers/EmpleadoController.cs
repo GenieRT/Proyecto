@@ -7,7 +7,7 @@ namespace ProyectoIntegrador.WebApi2.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class EmpleadosController : ControllerBase
+    public class EmpleadoController : ControllerBase
     {
        /* private readonly IRepositorioUsuarios _repositorioEmpleados;
 

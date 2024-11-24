@@ -43,7 +43,7 @@ namespace WebApiEuge
             // Inicialización de casos de uso
             builder.Services.AddScoped<IRegistrarPedido, RegistrarPedidoCU>();
             builder.Services.AddScoped<IListarProductos, ListarProductosCU>();
-            builder.Services.AddScoped<IListarPresentaciones, ListarPresentacionesCU>();
+            builder.Services.AddScoped<IListarPresentaciones, ProyectoIntegradorLogicaAplicacion.CasosDeUso.ListarPresentacionesCU>();
 
             builder.Services.AddScoped<IRegistro, RegistroCU>();
             builder.Services.AddScoped<ILogin, LoginCU>();

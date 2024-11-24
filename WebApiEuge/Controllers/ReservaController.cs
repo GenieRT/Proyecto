@@ -9,7 +9,7 @@ namespace ProyectoIntegrador.WebApi2.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class ReservasController : ControllerBase
+    public class ReservaController : ControllerBase
     {
         /*private readonly IRepositorioReservas _repositorioReservas;
 

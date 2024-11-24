@@ -21,7 +21,7 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         {
             try
             {
-                if (pedido.Id > 0) // Verifica si el pedido ya existe
+                /*if (pedido.Id > 0) // Verifica si el pedido ya existe
                 {
                     var existingPedido = _context.Pedidos
                         .Include(p => p.Productos)
@@ -43,9 +43,15 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
                 else
                 {
                     // Nuevo pedido, simplemente agregarlo
-                    _context.Pedidos.Add(pedido);
-                }
+                    
+                }*/
 
+                if (pedido == null)
+                {
+                    throw new ArgumentNullException(nameof(pedido), "El pedido no puede ser nulo.");
+                }
+                pedido.Validar();
+                _context.Pedidos.Add(pedido);
                 // Guardar cambios
                 _context.SaveChanges();
             }
