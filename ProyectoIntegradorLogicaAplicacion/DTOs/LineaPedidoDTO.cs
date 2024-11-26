@@ -10,6 +10,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
 {
     public class LineaPedidoDTO
     {
+        public int Id { get; set; }
         public int ProductoId { get; set; }
 
         public ProductoDTO? Producto { get; set; }

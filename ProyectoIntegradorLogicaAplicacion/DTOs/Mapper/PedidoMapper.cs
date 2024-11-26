@@ -36,7 +36,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
                 Fecha = pedido.Fecha,
                 ClienteId = pedido.ClienteId,
                 Estado = pedido.Estado,
-                Productos = pedido.Productos.Select(lp => new LineaPedidoDTO(lp)).ToList()
+                Productos = (List<LineaPedidoDTO>)LineaPedidoMapper.ToListaDto(pedido.Productos)
 
             };
         }

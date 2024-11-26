@@ -4,6 +4,7 @@ using ProyectoIntegradorLibreria.InterfacesRepositorios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,35 +22,23 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         {
             try
             {
-                /*if (pedido.Id > 0) // Verifica si el pedido ya existe
-                {
-                    var existingPedido = _context.Pedidos
-                        .Include(p => p.Productos)
-                        .FirstOrDefault(p => p.Id == pedido.Id);
-
-                    if (existingPedido != null)
-                    {
-                        // Reemplazar la lista de productos
-                        existingPedido.Productos.Clear();
-                        foreach (var linea in pedido.Productos)
-                        {
-                            existingPedido.Productos.Add(linea);
-                        }
-
-                        // Actualizar el pedido
-                        _context.Entry(existingPedido).State = EntityState.Modified;
-                    }
-                }
-                else
-                {
-                    // Nuevo pedido, simplemente agregarlo
-                    
-                }*/
 
                 if (pedido == null)
                 {
                     throw new ArgumentNullException(nameof(pedido), "El pedido no puede ser nulo.");
                 }
+                if(GetClienteById(pedido.ClienteId) == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
+                foreach(LineaPedido ln in pedido.Productos)
+                {
+                    if(GetProductoById(ln.ProductoId) == null || GetPresentacionById(ln.PresentacionId) == null){
+                        throw new Exception("Producto o presentación no encontrado");
+                    }
+                }
+
+
                 pedido.Validar();
                 _context.Pedidos.Add(pedido);
                 // Guardar cambios
@@ -67,7 +56,10 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             return _context.Usuarios.FirstOrDefault(c => c.Id == id);
         }
 
-
+        public Presentacion GetPresentacionById(int id)
+        {
+            return _context.Presentacions.FirstOrDefault(p => p.Id == id);
+        }
 
         public IEnumerable<Pedido> FindAll()
         {
@@ -89,6 +81,9 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             throw new NotImplementedException();
         }
 
-        
+        public Producto GetProductoById(int id)
+        {
+            return _context.Productos.FirstOrDefault(p => p.Id == id);
+        }
     }
 }

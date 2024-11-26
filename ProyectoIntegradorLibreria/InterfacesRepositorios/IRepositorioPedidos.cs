@@ -9,8 +9,10 @@ namespace ProyectoIntegradorLibreria.InterfacesRepositorios
 {
     public interface IRepositorioPedidos : IRepositorio<Pedido>
     {
-        public Usuario GetClienteById(int id);
 
-       // LineaPedido GetLineaPedidoById(int id);
+       public Usuario GetClienteById(int clienteId);
+       public Presentacion GetPresentacionById(int id);
+
+       public Producto GetProductoById(int id);
     }
 }
