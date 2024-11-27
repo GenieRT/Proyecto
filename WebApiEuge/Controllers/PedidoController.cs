@@ -39,12 +39,13 @@ namespace ProyectoIntegrador.WebApiVersion3.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult Post ([FromBody] PedidoDTO pedido)
         {
             try
             {
                 PedidoDTO pedDTO = this._registrarPedido.addPedido(pedido);
-                return Created("api/Pedidos", pedDTO);
+                return Created("api/v1/Pedido", pedDTO);
             }catch (Exception ex)
             {
                 return BadRequest(ex.Message);

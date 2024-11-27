@@ -27,7 +27,6 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
         }
 
 
-
         public static PedidoDTO ToDto(Pedido pedido)
         {
             return new PedidoDTO()

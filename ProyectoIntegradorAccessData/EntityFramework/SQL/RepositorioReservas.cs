@@ -16,9 +16,25 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         {
             _context = new ISUSAContext();
         }
-        public void Add(Reserva t)
+        public void Add(Reserva reserva)
         {
-            throw new NotImplementedException();
+            if (reserva == null)
+            {
+                throw new ArgumentNullException(nameof(reserva), "La reserva no puede ser nula");
+            }
+            Pedido ped = GetPedidoById(reserva.PedidoId);
+            if(GetClienteById(reserva.ClienteId) == null || ped == null)
+            {
+                throw new Exception("Cliente o Pedido no encontrado");
+            }
+            if(ped.Estado == "Pendiente" || ped.Estado == "Cerrado")
+            {
+                throw new Exception("Pedido no aprobado o ya cerrado");
+            }
+
+            reserva.Validar();
+            _context.Reservas.Add(reserva);
+            _context.SaveChanges();
         }
 
         public IEnumerable<Reserva> FindAll()
@@ -29,6 +45,16 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         public Reserva FindByID(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public Usuario GetClienteById(int id)
+        {
+            return _context.Usuarios.FirstOrDefault(c => c.Id == id);
+        }
+
+        public Pedido GetPedidoById(int id)
+        {
+            return _context.Pedidos.FirstOrDefault(c => c.Id == id);
         }
 
         public void Remove(int id)

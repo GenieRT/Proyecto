@@ -11,7 +11,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
     {
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
-        public string Estado { get; set; }
+        public string ? Estado { get; set; }
         public List<LineaPedidoDTO> Productos { get; set; }
         public ClienteDTO ? Cliente { get; set; }
 
@@ -20,6 +20,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
         public PedidoDTO() 
         { 
            this.Productos = new List<LineaPedidoDTO>();
+            this.Estado = "Pendiente";
         }
         public PedidoDTO(Pedido pedido)
         {

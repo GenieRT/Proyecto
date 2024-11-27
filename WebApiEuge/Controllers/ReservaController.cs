@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using ProyectoIntegradorLibreria.Entities;
 using ProyectoIntegradorLibreria.InterfacesRepositorios;
+using ProyectoIntegradorLogicaAplicacion.DTOs;
+using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
 using System;
 using System.Collections.Generic;
 
@@ -11,13 +13,31 @@ namespace ProyectoIntegrador.WebApi2.Controllers
     [ApiController]
     public class ReservaController : ControllerBase
     {
-        /*private readonly IRepositorioReservas _repositorioReservas;
+        private IRegistrarReserva _registrarReserva;
 
-        public ReservasController(IRepositorioReservas repositorioReservas)
+        public ReservaController(IRegistrarReserva registrarReserva)
         {
-            _repositorioReservas = repositorioReservas;
+            _registrarReserva = registrarReserva;
         }
 
+        // Crear una nueva reserva
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult Create([FromBody]ReservaDTO reserva)
+        {
+            try
+            {
+                ReservaDTO reservaDTO = _registrarReserva.Ejecutar(reserva);
+                return Created("api/v1/Reserva", reservaDTO);
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /*
         // Mostrar todas las reservas
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -62,29 +82,7 @@ namespace ProyectoIntegrador.WebApi2.Controllers
             }
         }
 
-        // Crear una nueva reserva
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult Create(Reserva reserva)
-        {
-            if (reserva == null)
-            {
-                return BadRequest("Los datos de la reserva son inválidos.");
-            }
-
-            try
-            {
-                _repositorioReservas.Add(reserva);
-                return StatusCode(StatusCodes.Status201Created, "Reserva creada con éxito.");
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Hubo un error al crear la reserva.");
-            }
-        }
-
+        
         // Actualizar una reserva existente
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

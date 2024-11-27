@@ -4,6 +4,7 @@ using ProyectoIntegradorLibreria.InterfacesRepositorios;
 using ProyectoIntegradorLogicaAplicacion.CasosDeUso;
 using ProyectoIntegradorLogicaAplicacion.DTOs;
 using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
+using System.Text.Json.Serialization;
 using WebApiVersion3.Services;
 
 namespace WebApiEuge
@@ -27,6 +28,12 @@ namespace WebApiEuge
                 });
             });
 
+            builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
+
             // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
@@ -44,7 +51,7 @@ namespace WebApiEuge
             builder.Services.AddScoped<IRegistrarPedido, RegistrarPedidoCU>();
             builder.Services.AddScoped<IListarProductos, ListarProductosCU>();
             builder.Services.AddScoped<IListarPresentaciones, ProyectoIntegradorLogicaAplicacion.CasosDeUso.ListarPresentacionesCU>();
-
+            builder.Services.AddScoped<IRegistrarReserva, RegistrarReservaCU>();
             builder.Services.AddScoped<IRegistro, RegistroCU>();
             builder.Services.AddScoped<ILogin, LoginCU>();
 
