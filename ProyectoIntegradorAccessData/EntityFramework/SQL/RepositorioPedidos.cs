@@ -50,10 +50,21 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             }
         }
 
-
-        public Usuario GetClienteById(int id)
+        //proximos 3: aprobarPedidoCU
+        public Usuario? GetClienteById(int id)
         {
             return _context.Usuarios.FirstOrDefault(c => c.Id == id);
+        }
+        
+        public Pedido? GetPedidoById(int pedidoId)
+        {
+            return _context.Pedidos.FirstOrDefault(p => p.Id == pedidoId);
+        }
+        
+        public void Update(Pedido p)
+        {
+            _context.Pedidos.Update(p);
+            _context.SaveChanges();
         }
 
         public Presentacion GetPresentacionById(int id)
@@ -76,14 +87,26 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             throw new NotImplementedException();
         }
 
-        public void Update(Pedido t)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public Producto GetProductoById(int id)
         {
             return _context.Productos.FirstOrDefault(p => p.Id == id);
         }
+
+      
+
+
+        public IEnumerable<Pedido> GetPedidosPorCliente(int clienteId)
+        {
+            return _context.Pedidos.Where(p => p.ClienteId == clienteId).ToList();
+        }
+
+        public IEnumerable<Reserva> GetReservasPorCliente(int clienteId)
+        {
+            return _context.Reservas.Where(r => r.ClienteId == clienteId).ToList();
+        }
+
+        
     }
 }

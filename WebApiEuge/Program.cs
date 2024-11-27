@@ -51,9 +51,13 @@ namespace WebApiEuge
             builder.Services.AddScoped<IRegistrarPedido, RegistrarPedidoCU>();
             builder.Services.AddScoped<IListarProductos, ListarProductosCU>();
             builder.Services.AddScoped<IListarPresentaciones, ProyectoIntegradorLogicaAplicacion.CasosDeUso.ListarPresentacionesCU>();
-            builder.Services.AddScoped<IRegistrarReserva, RegistrarReservaCU>();
+            builder.Services.AddScoped<IListarPedidos, ListarPedidosCU>();
+            builder.Services.AddScoped<IAprobarPedido, AprobarPedidoCU>();
+
             builder.Services.AddScoped<IRegistro, RegistroCU>();
             builder.Services.AddScoped<ILogin, LoginCU>();
+
+
 
             // Configura los servicios adicionales (email services)
             builder.Services.AddScoped<IEmailService>(provider => new EmailService(
