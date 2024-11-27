@@ -26,9 +26,9 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
             {
                 throw new ArgumentNullException(nameof(reserva), "La reserva no puede ser nula");
             }
-            Reserva nueva = ReservaMapper.FromDto(reserva);
-            _repositorioReservas.Add(nueva);
-            return ReservaMapper.ToDto(nueva);
+            Reserva nuevo = ReservaMapper.FromDto(reserva);
+            _repositorioReservas.Add(nuevo);
+            return ReservaMapper.ToDto(nuevo);
         }
     }
 }

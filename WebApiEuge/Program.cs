@@ -53,7 +53,7 @@ namespace WebApiEuge
             builder.Services.AddScoped<IListarPresentaciones, ProyectoIntegradorLogicaAplicacion.CasosDeUso.ListarPresentacionesCU>();
             builder.Services.AddScoped<IListarPedidos, ListarPedidosCU>();
             builder.Services.AddScoped<IAprobarPedido, AprobarPedidoCU>();
-
+            builder.Services.AddScoped<IRegistrarReserva, RegistrarReservaCU>();
             builder.Services.AddScoped<IRegistro, RegistroCU>();
             builder.Services.AddScoped<ILogin, LoginCU>();
 

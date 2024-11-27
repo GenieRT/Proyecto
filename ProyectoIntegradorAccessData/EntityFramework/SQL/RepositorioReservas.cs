@@ -34,6 +34,7 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
 
             reserva.Validar();
             _context.Reservas.Add(reserva);
+            //guardar cambios
             _context.SaveChanges();
         }
 

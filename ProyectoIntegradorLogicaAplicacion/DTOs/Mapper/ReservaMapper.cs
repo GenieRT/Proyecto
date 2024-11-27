@@ -23,7 +23,6 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
         }
 
 
-
         public static ReservaDTO ToDto(Reserva reserva)
         {
             return new ReservaDTO()

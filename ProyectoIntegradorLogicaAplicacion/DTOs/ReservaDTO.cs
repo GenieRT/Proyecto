@@ -15,10 +15,10 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
         public DateTime Fecha { get; set; }
         public EstadoReservaEnum? EstadoReserva { get; set; }
 
-        public PedidoDTO ? Pedido { get; set; }
+        public PedidoDTO? Pedido { get; set; }
 
         public int PedidoId { get; set; }
-        public ClienteDTO ? Cliente { get; set; }
+        public ClienteDTO? Cliente { get; set; }
         public int ClienteId { get; set; }
         public string Camion { get; set; }
         public string Chofer { get; set; }

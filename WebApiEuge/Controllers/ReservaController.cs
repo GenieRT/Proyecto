@@ -20,7 +20,7 @@ namespace ProyectoIntegrador.WebApi2.Controllers
             _registrarReserva = registrarReserva;
         }
 
-        // Crear una nueva reserva
+        //Registro de Reserva
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

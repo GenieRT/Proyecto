@@ -38,12 +38,12 @@ namespace ProyectoIntegradorLibreria.Entities
 
             if (string.IsNullOrWhiteSpace(Camion))
             {
-                throw new InvalidOperationException("El camión no puede ser nulo o vacío.");
+                throw new InvalidOperationException("El campo camión no puede ser nulo o vacío.");
             }
 
             if (string.IsNullOrWhiteSpace(Chofer))
             {
-                throw new InvalidOperationException("El chofer no puede ser nulo o vacío.");
+                throw new InvalidOperationException("El campo chofer no puede ser nulo o vacío.");
             }
         }
     }
