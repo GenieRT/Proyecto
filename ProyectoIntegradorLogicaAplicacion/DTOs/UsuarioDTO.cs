@@ -18,9 +18,15 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
         public UsuarioDTO() { }
 
         public UsuarioDTO(Usuario user)
-        {  
-            this.Email = user.Email;
-            this.Contraseña = user.Contraseña;
+        {
+            if (user != null)
+            {
+                this.Id = user.Id;
+                this.Nombre = user.Nombre;
+                this.Rol = user.Rol;
+                this.Email = user.Email;
+                this.Contraseña = user.Contraseña;
+            }
         }
 
     }

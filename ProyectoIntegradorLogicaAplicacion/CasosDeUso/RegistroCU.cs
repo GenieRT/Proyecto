@@ -49,35 +49,33 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
 
         public void ActualizarContraseña(string email, string nuevaContraseña)
         {
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(nuevaContraseña))
+            {
+                throw new ArgumentException("El email y la nueva contraseña son requeridos.");
+            }
+
             var usuario = repoUsuarios.FindByEmail(email);
             if (usuario == null)
             {
                 throw new Exception("Usuario no encontrado.");
             }
 
-            // Validar y actualizar la contraseña
-            //usuario.SetPassword(nuevaContraseña);
+            // Validar la nueva contraseña
+            usuario.Contraseña = nuevaContraseña; // Asignación temporal
+            usuario.Validar(); // Método de la entidad Usuario
 
-            // Guardar los cambios en la base de datos
-            //repoUsuarios.Update(usuario);
-
-
-
-
-            // Generar un token de confirmación 
+            // Generar un token de confirmación
             string token = Guid.NewGuid().ToString();
-
-            // Asignar el token y su posible expiración al usuario
             usuario.ConfirmationToken = token;
             usuario.TemporalPassword = nuevaContraseña;
 
-            // Guardar el token en la base de datos
+            // Guardar el token y la contraseña temporal en la base de datos
             repoUsuarios.Update(usuario);
 
             // Construir el link de confirmación
             string confirmationLink = $"https://localhost:7218/api/Usuario/ConfirmarCambio?email={email}&token={token}";
 
-            // Enviar el correo al usuario con el link
+            // Enviar el correo con el link de confirmación
             string subject = "Confirmación de cambio de contraseña";
             string body = $"Hola {usuario.Nombre},<br><br>" +
                           $"Hemos recibido tu solicitud para cambiar tu contraseña. Haz clic en el siguiente link para confirmar el cambio:<br>" +
@@ -87,8 +85,32 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
             emailService.SendEmail(email, subject, body);
         }
 
-        public void ActualizarUsuario(Usuario usuario)
+
+        public void ConfirmarCambio(string email, string token)
         {
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(token))
+            {
+                throw new ArgumentException("El email y el token son requeridos.");
+            }
+
+            var usuario = repoUsuarios.FindByEmail(email);
+            if (usuario == null)
+            {
+                throw new Exception("Usuario no encontrado.");
+            }
+
+            //validar el token
+            if (usuario.ConfirmationToken != token)
+            {
+                throw new Exception("Token inválido o expirado.");
+            }
+
+            //confirmar el cambio de contraseña
+            usuario.SetPassword(usuario.TemporalPassword);
+            usuario.TemporalPassword = null; // Limpiar la contraseña temporal
+            usuario.ConfirmationToken = null; // Limpiar el token
+
+            //actualizar usu en la bd
             repoUsuarios.Update(usuario);
         }
     }

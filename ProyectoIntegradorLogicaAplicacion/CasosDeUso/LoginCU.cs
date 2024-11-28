@@ -13,22 +13,27 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
     public class LoginCU : ILogin
     {
         private IRepositorioUsuarios repoUsuarios;
+        private ITokenService tokenService;
 
-        public LoginCU(IRepositorioUsuarios repositorioUsuarios)
+        public LoginCU(IRepositorioUsuarios repositorioUsuarios, ITokenService tokenService)
         {
             this.repoUsuarios = repositorioUsuarios;
+            this.tokenService = tokenService;
         }
 
         public UsuarioDTO Login(string email, string pass)
         {
-            // Buscar al usuario en el repositorio
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(pass))
+            {
+                throw new ArgumentException("El email y la contraseña son requeridos.");
+            }
+
             var usuario = repoUsuarios.FindByEmail(email);
             if (usuario == null)
             {
                 throw new Exception("El email no está registrado.");
             }
 
-            // Validar la contraseña
             string claveEncriptada = Usuario.ComputeSha256Hash(pass);
             if (usuario.EncriptedPassword != claveEncriptada)
             {
@@ -36,6 +41,25 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
             }
 
             return new UsuarioDTO(usuario);
+        }
+        
+        
+        public string GenerarToken(string userId, string rol)
+        {
+            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(rol))
+            {
+                throw new ArgumentException("Los datos del usuario son inválidos para generar el token.");
+            }
+
+            try
+            {
+                return tokenService.GenerateToken(userId, rol);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al generar el token: {ex.Message}", ex);
+            }
+
         }
     }
 }

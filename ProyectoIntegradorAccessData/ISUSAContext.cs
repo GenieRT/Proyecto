@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProyectoIntegradorLibreria.Entities;
+using ProyectoIntegradorLibreria.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,13 @@ namespace ProyectoIntegradorAccesData
         {
             base.OnModelCreating(modelBuilder);
 
+            // ValueConverter para EstadoReserva
+            modelBuilder.Entity<Reserva>()
+                .Property(r => r.EstadoReserva)
+                .HasConversion(
+                    v => v.ToString(), // Convierte Enum -> String al guardar en la base de datos
+                    v => (EstadoReservaEnum)Enum.Parse(typeof(EstadoReservaEnum), v) // Convierte String -> Enum al leer de la base de datos
+                );
 
             modelBuilder.Entity<Usuario>()
                         .HasDiscriminator<string>("Discriminator")

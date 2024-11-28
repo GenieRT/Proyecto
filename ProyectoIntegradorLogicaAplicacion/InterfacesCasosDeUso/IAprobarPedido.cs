@@ -11,6 +11,7 @@ namespace ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso
     {
         Empleado? BuscarEmpleadoPorId(int empleadoId);
         Pedido? BuscarPedidoPorId(int pedidoId);
-        bool AprobarPedido(Pedido pedido);
+        //bool AprobarPedido(Pedido pedido);
+        void AprobarPedidoPorId(int pedidoId);
     }
 }

@@ -13,10 +13,12 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
     public class ListarPedidosCU : IListarPedidos
     {
         private readonly IRepositorioPedidos repoPedidos;
+        private readonly IRepositorioReservas repoReservas;
 
-        public ListarPedidosCU(IRepositorioPedidos repositorioPedidos) 
+        public ListarPedidosCU(IRepositorioPedidos repositorioPedidos, IRepositorioReservas repositorioReservas) 
         {
-            this.repoPedidos = repositorioPedidos;    
+            this.repoPedidos = repositorioPedidos;
+            this.repoReservas = repositorioReservas;
         }
 
         public Cliente? buscarClientePorId(int clienteId)
@@ -25,7 +27,7 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
 
             if (cli == null || !(cli is Cliente cliente))
             {
-                return null;
+                throw new KeyNotFoundException("Cliente no encontrado.");
             }
 
             return cliente;
@@ -34,11 +36,32 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
 
         public ClientePedidoReservaDTO ObtenerPedidosYReservasPorCliente(int clienteId)
         {
-            var pedidos = repoPedidos.GetPedidosPorCliente(clienteId) ?? new List<Pedido>();
-            var reservas = repoPedidos.GetReservasPorCliente(clienteId) ?? new List<Reserva>();
-            //si las listas vienen null, crea una nueva vacia
+            if (clienteId <= 0)
+            {
+                throw new ArgumentException("El ID del cliente es inválido.");
+            }
 
-            return new ClientePedidoReservaDTO(pedidos, reservas);
+            // Validar si el cliente existe
+            var cliente = buscarClientePorId(clienteId);
+            if (cliente == null)
+            {
+                throw new KeyNotFoundException("Cliente no encontrado.");
+            }
+
+            try
+            {
+                // Obtener los pedidos y reservas
+                var pedidos = repoPedidos.GetPedidosPorCliente(clienteId) ?? new List<Pedido>();
+                var reservas = repoReservas.GetReservasPorCliente(clienteId) ?? new List<Reserva>();
+
+                // Crear el DTO con la información
+                return new ClientePedidoReservaDTO(pedidos, reservas);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en ObtenerPedidosYReservasPorCliente: {ex.Message}");
+                throw new ApplicationException("Error al obtener los pedidos y reservas del cliente.", ex);
+            }
         }
     }
 }

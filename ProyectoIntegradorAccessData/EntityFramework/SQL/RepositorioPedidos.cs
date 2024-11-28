@@ -50,7 +50,6 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             }
         }
 
-        //proximos 3: aprobarPedidoCU
         public Usuario? GetClienteById(int id)
         {
             return _context.Usuarios.FirstOrDefault(c => c.Id == id);
@@ -102,10 +101,7 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             return _context.Pedidos.Where(p => p.ClienteId == clienteId).ToList();
         }
 
-        public IEnumerable<Reserva> GetReservasPorCliente(int clienteId)
-        {
-            return _context.Reservas.Where(r => r.ClienteId == clienteId).ToList();
-        }
+       
 
         
     }
