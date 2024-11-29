@@ -44,7 +44,7 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
             return pedido;
         }
         
-        public bool AprobarPedido(Pedido p)
+        /*public bool AprobarPedido(Pedido p)
         {
             if (p.Estado != EstadoPedidoEnum.PENDIENTE)
             {
@@ -56,6 +56,28 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
             repoPedidos.Update(p);
 
             return true;
+        }*/
+
+        public void AprobarPedidoPorId(int pedidoId)
+        {
+            if (pedidoId <= 0)
+            {
+                throw new ArgumentException("El ID del pedido debe ser mayor a 0.");
+            }
+
+            var pedido = BuscarPedidoPorId(pedidoId);
+            if (pedido == null)
+            {
+                throw new KeyNotFoundException("Pedido no encontrado.");
+            }
+
+            if (pedido.Estado != "Pendiente")
+            {
+                throw new InvalidOperationException("Solo se pueden aprobar pedidos en estado 'Pendiente'.");
+            }
+
+            pedido.Estado = "Aprobado";
+            repoPedidos.Update(pedido);
         }
     }
 }

@@ -58,14 +58,14 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             return true;
         }
 
-        /*public Usuario Login(string email, string pass)
-        {
-            string claveEncriptada = Usuario.ComputeSha256Hash(pass);
-            return _context.Usuarios.FirstOrDefault(u => u.Email == email && u.EncriptedPassword == claveEncriptada);
-        }*/
 
         public Usuario? FindByEmail(string email)
         {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentException("El email no puede estar vacío.");
+            }
+
             return _context.Usuarios.FirstOrDefault(u => u.Email == email);
         }
 

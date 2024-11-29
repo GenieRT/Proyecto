@@ -80,5 +80,32 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Reserva> GetReservasPorCliente(int clienteId)
+        {
+            try
+            {
+                // Depuración: Verificando consulta inicial
+                Console.WriteLine($"Obteniendo reservas para ClienteId: {clienteId}");
+
+                var reservas = _context.Reservas
+                    .Include(r => r.Cliente) // Asegura cargar la relación Cliente
+                    .Include(r => r.Pedido) // Asegura cargar la relación Pedido
+                    .Where(r => r.ClienteId == clienteId)
+                    .ToList();
+
+                // Depuración: Confirmando la cantidad de resultados
+                Console.WriteLine($"Cantidad de reservas obtenidas: {reservas.Count}");
+
+                return reservas;
+            }
+            catch (Exception ex)
+            {
+                // Depuración: Log en caso de error
+                Console.WriteLine($"Error en GetReservasPorCliente: {ex.Message}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+                throw;
+            }
+        }
     }
 }

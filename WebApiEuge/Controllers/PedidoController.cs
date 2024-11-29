@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProyectoIntegradorLibreria.Entities;
 using ProyectoIntegradorLogicaAplicacion.DTOs;
 using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace ProyectoIntegrador.WebApiVersion3.Controllers
 {
@@ -26,33 +29,23 @@ namespace ProyectoIntegrador.WebApiVersion3.Controllers
         {
             try
             {
-                if (clienteId <= 0)
-                {
-                    return BadRequest("El ID del cliente es inválido.");
-                }
-
-
-                //verificar si el cliente existe
-                var cli = listarPedidosCU.buscarClientePorId(clienteId);
-                if (cli == null)
-                {
-                    return NotFound("Cliente no encontrado.");
-                }
-
                 var pedidosReservas = listarPedidosCU.ObtenerPedidosYReservasPorCliente(clienteId);
-
-                if (pedidosReservas == null || (!pedidosReservas.Pedidos.Any() && !pedidosReservas.Reservas.Any()))
-                {
-                    return NotFound("No se encontraron pedidos ni reservas para el cliente.");
-                }
-
                 return Ok(pedidosReservas);
             }
-            catch (Exception ex)
+            catch (ArgumentException ex) // Excepción para parámetros inválidos
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (KeyNotFoundException ex) // Excepción para recursos no encontrados
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex) // Excepción general para errores internos
             {
                 return StatusCode(500, $"Error interno: {ex.Message}");
             }
         }
+
 
 
         [HttpPut("AprobarPedido")]
@@ -60,39 +53,27 @@ namespace ProyectoIntegrador.WebApiVersion3.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult AprobarPedido([FromQuery] int pedidoId, [FromQuery] int empleadoId)
+        [Authorize(Roles = "Empleado")]
+        public IActionResult AprobarPedido([FromQuery] int pedidoId)
         {
             try
             {
-                if (pedidoId <= 0 || empleadoId <= 0)
-                {
-                    return BadRequest("El ID del pedido y el ID del empleado son requeridos y deben ser mayores a 0.");
-                }
-
-                //luego se cambiara cunado se implemente token etc
-                var empleado = aprobarPedidoCU.BuscarEmpleadoPorId(empleadoId);
-                if (empleado == null)
-                {
-                    return StatusCode(StatusCodes.Status403Forbidden, "Acción permitida solo para empleados.");
-                }
-
-                var pedido = aprobarPedidoCU.BuscarPedidoPorId(pedidoId);
-                if (pedido == null)
-                {
-                    return NotFound("Pedido no encontrado.");
-                }
-
-                //validar estado del pedido y aprobarlo
-                var resultado = aprobarPedidoCU.AprobarPedido(pedido);
-
-                if (!resultado)
-                {
-                    return StatusCode(500, "Error al aprobar el pedido.");
-                }
-
+                aprobarPedidoCU.AprobarPedidoPorId(pedidoId);
                 return Ok("Pedido aprobado con éxito.");
             }
-            catch (Exception ex)
+            catch (ArgumentException ex) // Parámetros inválidos
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (KeyNotFoundException ex) // Pedido no encontrado
+            {
+                return NotFound(ex.Message);
+            }
+            catch (InvalidOperationException ex) // Lógica de negocio fallida
+            {
+                return StatusCode(403, ex.Message); // HTTP 403 para operaciones no permitidas
+            }
+            catch (Exception ex) // Error interno
             {
                 return StatusCode(500, $"Error interno: {ex.Message}");
             }

@@ -32,6 +32,16 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
 
         public ReservaDTO(Reserva reserva)
         {
+            try
+            {
+                // Depuración: Validar datos de entrada
+                Console.WriteLine($"Creando ReservaDTO desde Reserva con Id: {reserva?.Id}");
+
+                if (reserva == null)
+                {
+                    throw new ArgumentNullException(nameof(reserva), "La reserva no puede ser nula.");
+                }
+
             Id = reserva.Id;
             Fecha = reserva.Fecha;
             EstadoReserva = reserva.EstadoReserva;
@@ -46,6 +56,17 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
                 this.LineasReservas = reserva.LineasReservas.Select(lp => new LineaReservaDTO(lp)).ToList();
             }
 
+
+                // Depuración: Confirmar transformación
+                Console.WriteLine($"ReservaDTO creada con Id: {Id}, ClienteId: {ClienteId}, PedidoId: {PedidoId}");
+            }
+            catch (Exception ex)
+            {
+                // Depuración: Log de errores en DTO
+                Console.WriteLine($"Error al crear ReservaDTO: {ex.Message}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+                throw;
+            }
         }
     }
 }

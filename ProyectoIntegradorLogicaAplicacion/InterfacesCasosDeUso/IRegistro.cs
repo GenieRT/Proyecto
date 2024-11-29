@@ -12,8 +12,9 @@ namespace ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso
     {
         UsuarioDTO BuscarUsuarioPorEmail(string email);
         void ActualizarContraseña(string email, string nuevaContraseña);
-        void ActualizarUsuario(Usuario usuario);
+        //void ActualizarUsuario(Usuario usuario);
         Usuario BuscarUsuarioEntidadPorEmail(string email);
+        void ConfirmarCambio(string email, string token);
     }
 
 }

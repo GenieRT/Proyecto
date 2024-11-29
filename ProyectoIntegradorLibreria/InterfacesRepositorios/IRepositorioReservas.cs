@@ -1,4 +1,5 @@
-﻿using ProyectoIntegradorLibreria.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ProyectoIntegradorLibreria.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace ProyectoIntegradorLibreria.InterfacesRepositorios
     {
         public Usuario GetClienteById(int id);
         public Pedido GetPedidoById(int id);
+        public IEnumerable<Reserva> GetReservasPorCliente(int clienteId);
 
     }
 }
