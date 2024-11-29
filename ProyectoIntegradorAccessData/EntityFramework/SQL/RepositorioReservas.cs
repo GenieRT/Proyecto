@@ -1,4 +1,6 @@
-﻿using ProyectoIntegradorLibreria.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ProyectoIntegradorLibreria.Entities;
+using ProyectoIntegradorLibreria.Enum;
 using ProyectoIntegradorLibreria.InterfacesRepositorios;
 using System;
 using System.Collections.Generic;
@@ -18,21 +20,30 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         }
         public void Add(Reserva reserva)
         {
-            if (reserva == null)
+            if(reserva == null)
             {
                 throw new ArgumentNullException(nameof(reserva), "La reserva no puede ser nula");
             }
+            
             Pedido ped = GetPedidoById(reserva.PedidoId);
-            if(GetClienteById(reserva.ClienteId) == null || ped == null)
+            Usuario cli = GetClienteById(reserva.ClienteId);
+
+            if (cli == null)
             {
-                throw new Exception("Cliente o Pedido no encontrado");
-            }
-            if(ped.Estado == "Pendiente" || ped.Estado == "Cerrado")
-            {
-                throw new Exception("Pedido no aprobado o ya cerrado");
+                throw new InvalidOperationException("No se encontró el cliente");
             }
 
-            reserva.Validar();
+            if (ped == null)
+            {
+                throw new InvalidOperationException("No se encontró el pedido.");
+            }
+
+            if (ped.Estado == EstadoPedidoEnum.CERRADO || ped.Estado == EstadoPedidoEnum.PENDIENTE)
+            {
+                throw new InvalidOperationException("El pedido no está aprobado o ya está cerrado.");
+            }
+
+            reserva.ProcesarReserva(ped);
             _context.Reservas.Add(reserva);
             //guardar cambios
             _context.SaveChanges();
@@ -55,7 +66,9 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
 
         public Pedido GetPedidoById(int id)
         {
-            return _context.Pedidos.FirstOrDefault(c => c.Id == id);
+            return _context.Pedidos
+                   .Include(p => p.Productos)  
+                   .FirstOrDefault(p => p.Id == id);
         }
 
         public void Remove(int id)

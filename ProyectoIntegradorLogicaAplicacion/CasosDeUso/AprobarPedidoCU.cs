@@ -1,4 +1,5 @@
 ﻿using ProyectoIntegradorLibreria.Entities;
+using ProyectoIntegradorLibreria.Enum;
 using ProyectoIntegradorLibreria.InterfacesRepositorios;
 using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
 using System;
@@ -45,13 +46,13 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
         
         public bool AprobarPedido(Pedido p)
         {
-            if (p.Estado != "Pendiente")
+            if (p.Estado != EstadoPedidoEnum.PENDIENTE)
             {
                 throw new InvalidOperationException("Solo se pueden aprobar pedidos en estado 'Pendiente'.");
             }
 
             //actualizo el pedido
-            p.Estado = "Aprobado";
+            p.Estado = EstadoPedidoEnum.APROBADO;
             repoPedidos.Update(p);
 
             return true;

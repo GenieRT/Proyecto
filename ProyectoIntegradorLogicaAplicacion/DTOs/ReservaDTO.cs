@@ -23,6 +23,8 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
         public string Camion { get; set; }
         public string Chofer { get; set; }
 
+        public List<LineaReservaDTO> LineasReservas { get; set; }
+
         public ReservaDTO() 
         {
            this.EstadoReserva = EstadoReservaEnum.SIN_ESTADO;
@@ -39,6 +41,10 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
             ClienteId = reserva.ClienteId;
             Camion = reserva.Camion;
             Chofer = reserva.Chofer;
+            if (reserva?.LineasReservas != null)
+            {
+                this.LineasReservas = reserva.LineasReservas.Select(lp => new LineaReservaDTO(lp)).ToList();
+            }
 
         }
     }

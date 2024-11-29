@@ -19,7 +19,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
         public int PresentacionId { get; set; }
         public int Cantidad { get; set; }
 
-
+        public int CantidadRestante { get; set; }
         public LineaPedidoDTO(LineaPedido linea)
         {
             this.ProductoId = linea.ProductoId;
@@ -27,6 +27,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
             this.PresentacionId = linea.PresentacionId;
             this.Presentacion = new PresentacionDTO(linea.Presentacion); 
             this.Cantidad = linea.Cantidad;
+            this.CantidadRestante = Cantidad;
            
         }
 

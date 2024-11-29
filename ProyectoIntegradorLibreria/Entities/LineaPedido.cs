@@ -19,7 +19,12 @@ namespace ProyectoIntegradorLibreria.Entities
        [ForeignKey (nameof(Presentacion))] public int PresentacionId { get; set; }
         public int Cantidad { get; set; }
 
-        public LineaPedido() { }
+        public int CantidadRestante { get; set; }
+
+        public LineaPedido() 
+        {
+        
+        }
     }
 
 }

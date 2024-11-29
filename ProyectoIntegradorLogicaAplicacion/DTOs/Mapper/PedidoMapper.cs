@@ -1,6 +1,8 @@
 ﻿using ProyectoIntegradorLibreria.Entities;
+using ProyectoIntegradorLibreria.Enum;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +16,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
             return new Pedido
             {
                 Fecha = pedido.Fecha,
-                Estado = pedido.Estado,
+                Estado = (ProyectoIntegradorLibreria.Enum.EstadoPedidoEnum)pedido.Estado,
                 ClienteId = pedido.ClienteId,
                 Productos = pedido.Productos.Select(p => new LineaPedido
                 {
@@ -22,7 +24,21 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
                     PresentacionId = p.PresentacionId,
                     Cantidad = p.Cantidad,
 
-                }).ToList()
+                }).ToList(),
+                Reservas = pedido.Reservas.Select(r => new Reserva
+                {
+                    Id = r.Id,
+                    Fecha = r.Fecha,
+                    EstadoReserva = (EstadoReservaEnum)r.EstadoReserva,
+                    PedidoId = r.PedidoId,
+                    ClienteId = r.ClienteId,
+                    Camion = r.Camion,
+                    Chofer = r.Chofer,
+                    LineasReservas = r.LineasReservas.Select(lr => new LineaReserva { 
+                        ProductoId = lr.ProductoId,
+                        CantidadReservada = lr.CantidadReservada,
+                    }).ToList()                   
+                }).ToList(),
             };
         }
 
@@ -35,7 +51,8 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
                 Fecha = pedido.Fecha,
                 ClienteId = pedido.ClienteId,
                 Estado = pedido.Estado,
-                Productos = (List<LineaPedidoDTO>)LineaPedidoMapper.ToListaDto(pedido.Productos)
+                Productos = (List<LineaPedidoDTO>)LineaPedidoMapper.ToListaDto(pedido.Productos),
+                Reservas = (List<ReservaDTO>)ReservaMapper.ToListaDto(pedido.Reservas)
 
             };
         }

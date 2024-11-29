@@ -19,6 +19,12 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
                 ClienteId = reserva.ClienteId,
                 Camion = reserva.Camion,
                 Chofer = reserva.Chofer,
+                LineasReservas = reserva.LineasReservas.Select(p => new LineaReserva
+                {
+                    ProductoId = p.ProductoId,
+                    CantidadReservada = p.CantidadReservada,
+
+                }).ToList()
             };
         }
 
@@ -34,8 +40,20 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
                 ClienteId = reserva.ClienteId,
                 Camion = reserva.Camion,
                 Chofer = reserva.Chofer,
+                LineasReservas = (List<LineaReservaDTO>)LineaReservaMapper.ToListaDto(reserva.LineasReservas)
 
             };
+        }
+
+        public static IEnumerable<ReservaDTO> ToListaDto(IEnumerable<Reserva> reservas)
+        {
+            List<ReservaDTO> aux = new List<ReservaDTO>();
+            foreach (var res in reservas)
+            {
+                ReservaDTO reservaDTO = ToDto(res);
+                aux.Add(reservaDTO);
+            }
+            return aux;
         }
     }
 }

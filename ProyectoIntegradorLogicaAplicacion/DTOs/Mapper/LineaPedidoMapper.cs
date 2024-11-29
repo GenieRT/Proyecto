@@ -16,6 +16,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
                 ProductoId = linea.ProductoId,
                 PresentacionId = linea.PresentacionId,
                 Cantidad = linea.Cantidad,
+                CantidadRestante = linea.Cantidad,
             };
         }
 
@@ -28,8 +29,8 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
                 Id = linea.Id,
                 ProductoId = linea.ProductoId,
                 PresentacionId = linea.PresentacionId,
-                Cantidad = linea.Cantidad
-
+                Cantidad = linea.Cantidad,
+                CantidadRestante = linea.Cantidad
             };
         }
 

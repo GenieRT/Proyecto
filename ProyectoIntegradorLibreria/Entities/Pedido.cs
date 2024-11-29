@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoIntegradorLibreria.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -11,17 +12,53 @@ namespace ProyectoIntegradorLibreria.Entities
     {
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
-        public string Estado { get; set; }
+        public EstadoPedidoEnum Estado { get; set; }
         public List<LineaPedido> Productos { get; set; }
         public Cliente Cliente { get; set; }
 
         [ForeignKey (nameof (Cliente))] public int ClienteId { get; set; }
 
+        public List<Reserva> Reservas { get; set; } 
+
         public Pedido() 
         { 
             Productos = new List<LineaPedido>();
+            Reservas = new List<Reserva>();
         }
 
+        public int GetCantidadReservada(int productoId)
+        {
+            return Reservas
+                .SelectMany(r => r.LineasReservas)
+                .Where(lr => lr.ProductoId == productoId)
+                .Sum(lr => lr.CantidadReservada);
+        }
+
+        public bool EstaCompletamenteReservado()
+        {
+            return Productos.All(lp => GetCantidadReservada(lp.ProductoId) == lp.Cantidad);
+        }
+
+        public void SetCantidadRestante(int idProducto, int cant)
+        {
+            foreach (var item in Productos)
+            {
+                if(item.Id == idProducto)
+                {
+                    item.CantidadRestante = cant;
+                }
+            }
+        }
+
+        public void AddReservas(Reserva reserva)
+        {
+            Reservas.Add(reserva);
+        }
+
+        public void CerrarPedido()
+        {
+            this.Estado = EstadoPedidoEnum.CERRADO;
+        }
         public void Validar()
         {
             ValidarLista();

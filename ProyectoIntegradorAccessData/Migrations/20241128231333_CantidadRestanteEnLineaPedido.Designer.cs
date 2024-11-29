@@ -12,8 +12,8 @@ using ProyectoIntegradorAccesData;
 namespace ProyectoIntegradorAccessData.Migrations
 {
     [DbContext(typeof(ISUSAContext))]
-    [Migration("20241119012108_AddNumeroEmpleado")]
-    partial class AddNumeroEmpleado
+    [Migration("20241128231333_CantidadRestanteEnLineaPedido")]
+    partial class CantidadRestanteEnLineaPedido
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,25 +27,62 @@ namespace ProyectoIntegradorAccessData.Migrations
 
             modelBuilder.Entity("ProyectoIntegradorLibreria.Entities.LineaPedido", b =>
                 {
-                    b.Property<int>("ProductoId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CantidadRestante")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PedidoId")
                         .HasColumnType("int");
 
                     b.Property<int>("PresentacionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PedidoId")
+                    b.Property<int>("ProductoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Cantidad")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductoId", "PresentacionId", "PedidoId");
+                    b.HasKey("Id");
 
                     b.HasIndex("PedidoId");
 
                     b.HasIndex("PresentacionId");
 
+                    b.HasIndex("ProductoId");
+
                     b.ToTable("LineaPedido");
+                });
+
+            modelBuilder.Entity("ProyectoIntegradorLibreria.Entities.LineaReserva", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CantidadReservada")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ReservaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductoId");
+
+                    b.HasIndex("ReservaId");
+
+                    b.ToTable("LineaReserva");
                 });
 
             modelBuilder.Entity("ProyectoIntegradorLibreria.Entities.Pedido", b =>
@@ -62,9 +99,8 @@ namespace ProyectoIntegradorAccessData.Migrations
                     b.Property<int?>("ClienteId1")
                         .HasColumnType("int");
 
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
@@ -145,9 +181,8 @@ namespace ProyectoIntegradorAccessData.Migrations
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
-                    b.Property<string>("EstadoReserva")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("EstadoReserva")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
@@ -155,11 +190,16 @@ namespace ProyectoIntegradorAccessData.Migrations
                     b.Property<int>("PedidoId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PedidoId1")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
 
                     b.HasIndex("PedidoId");
+
+                    b.HasIndex("PedidoId1");
 
                     b.ToTable("Reservas");
                 });
@@ -191,6 +231,9 @@ namespace ProyectoIntegradorAccessData.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ConfirmationToken")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Contraseña")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -215,6 +258,9 @@ namespace ProyectoIntegradorAccessData.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TemporalPassword")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
@@ -229,14 +275,12 @@ namespace ProyectoIntegradorAccessData.Migrations
                     b.HasBaseType("ProyectoIntegradorLibreria.Entities.Usuario");
 
                     b.Property<string>("Estado")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumeroCliente")
+                    b.Property<int?>("NumeroCliente")
                         .HasColumnType("int");
 
                     b.Property<string>("RazonSocial")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Cliente");
@@ -254,11 +298,9 @@ namespace ProyectoIntegradorAccessData.Migrations
 
             modelBuilder.Entity("ProyectoIntegradorLibreria.Entities.LineaPedido", b =>
                 {
-                    b.HasOne("ProyectoIntegradorLibreria.Entities.Pedido", "Pedido")
+                    b.HasOne("ProyectoIntegradorLibreria.Entities.Pedido", null)
                         .WithMany("Productos")
-                        .HasForeignKey("PedidoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PedidoId");
 
                     b.HasOne("ProyectoIntegradorLibreria.Entities.Presentacion", "Presentacion")
                         .WithMany()
@@ -269,12 +311,25 @@ namespace ProyectoIntegradorAccessData.Migrations
                     b.HasOne("ProyectoIntegradorLibreria.Entities.Producto", "Producto")
                         .WithMany()
                         .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Pedido");
-
                     b.Navigation("Presentacion");
+
+                    b.Navigation("Producto");
+                });
+
+            modelBuilder.Entity("ProyectoIntegradorLibreria.Entities.LineaReserva", b =>
+                {
+                    b.HasOne("ProyectoIntegradorLibreria.Entities.Producto", "Producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProyectoIntegradorLibreria.Entities.Reserva", null)
+                        .WithMany("LineasReservas")
+                        .HasForeignKey("ReservaId");
 
                     b.Navigation("Producto");
                 });
@@ -308,6 +363,10 @@ namespace ProyectoIntegradorAccessData.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("ProyectoIntegradorLibreria.Entities.Pedido", null)
+                        .WithMany("Reservas")
+                        .HasForeignKey("PedidoId1");
+
                     b.Navigation("Cliente");
 
                     b.Navigation("Pedido");
@@ -316,6 +375,13 @@ namespace ProyectoIntegradorAccessData.Migrations
             modelBuilder.Entity("ProyectoIntegradorLibreria.Entities.Pedido", b =>
                 {
                     b.Navigation("Productos");
+
+                    b.Navigation("Reservas");
+                });
+
+            modelBuilder.Entity("ProyectoIntegradorLibreria.Entities.Reserva", b =>
+                {
+                    b.Navigation("LineasReservas");
                 });
 
             modelBuilder.Entity("ProyectoIntegradorLibreria.Entities.Cliente", b =>

@@ -22,6 +22,8 @@ namespace ProyectoIntegradorLibreria.Entities
         public string Camion { get; set; }
         public string Chofer { get; set; }
 
+        public List<LineaReserva> LineasReservas { get; set; }
+
         public Reserva() { }
 
         public void Validar()
@@ -44,6 +46,39 @@ namespace ProyectoIntegradorLibreria.Entities
             if (string.IsNullOrWhiteSpace(Chofer))
             {
                 throw new InvalidOperationException("El campo chofer no puede ser nulo o vacío.");
+            }
+        }
+
+        public void ProcesarReserva(Pedido pedido)
+        {
+            Validar();
+
+            foreach (var linea in LineasReservas)
+            {
+                var cantidadReservadaTotal = pedido.GetCantidadReservada(linea.ProductoId) + linea.CantidadReservada;
+                var producto = pedido.Productos.FirstOrDefault(lp => lp.ProductoId == linea.ProductoId);
+                if (producto == null)
+                {
+                    throw new Exception($"El producto con ID {linea.ProductoId} no se encuentra en el pedido.");
+                }
+
+
+                var cantidadRestanteNueva = producto.CantidadRestante - cantidadReservadaTotal;
+                if (cantidadReservadaTotal > producto.CantidadRestante)
+                {
+                    throw new Exception("Cantidad a reservar mayor a cantidad posible de reserva");
+                }
+                pedido.SetCantidadRestante(producto.Id, cantidadRestanteNueva);
+
+            }
+            this.Pedido = pedido;
+            
+            Pedido.AddReservas(this);
+
+
+            if (Pedido.EstaCompletamenteReservado())
+            {
+                Pedido.CerrarPedido();
             }
         }
     }

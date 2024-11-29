@@ -1,4 +1,5 @@
 ﻿using ProyectoIntegradorLibreria.Entities;
+using ProyectoIntegradorLibreria.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +12,19 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
     {
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
-        public string? Estado { get; set; }
+        public EstadoPedidoEnum? Estado { get; set; }
         public List<LineaPedidoDTO> Productos { get; set; }
         public ClienteDTO ? Cliente { get; set; }
+
+        public List<ReservaDTO>? Reservas { get; set; }
 
         public int ClienteId { get; set; }
 
         public PedidoDTO() 
         { 
            this.Productos = new List<LineaPedidoDTO>();
-            this.Estado = "Pendiente";
+           this.Reservas = new List<ReservaDTO>();
+           this.Estado = EstadoPedidoEnum.PENDIENTE;
         }
         public PedidoDTO(Pedido pedido)
         {
@@ -34,7 +38,10 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
             {
                 this.Productos = pedido.Productos.Select(lp => new LineaPedidoDTO(lp)).ToList();
             }
-
+            if (pedido?.Reservas != null)
+            {
+                this.Reservas = pedido.Reservas.Select(r => new ReservaDTO(r)).ToList();
+            }
         }
     }
 }
