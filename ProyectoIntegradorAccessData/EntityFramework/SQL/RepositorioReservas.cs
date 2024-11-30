@@ -85,27 +85,30 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         {
             try
             {
-                // Depuración: Verificando consulta inicial
                 Console.WriteLine($"Obteniendo reservas para ClienteId: {clienteId}");
 
                 var reservas = _context.Reservas
-                    .Include(r => r.Cliente) // Asegura cargar la relación Cliente
-                    .Include(r => r.Pedido) // Asegura cargar la relación Pedido
+                    .Include(r => r.Cliente) // Incluye la información del cliente
+                    .Include(r => r.Pedido) // Incluye la información del pedido
+                    .Include(r => r.LineasReservas)
+                        .ThenInclude(lr => lr.Producto)
                     .Where(r => r.ClienteId == clienteId)
                     .ToList();
 
-                // Depuración: Confirmando la cantidad de resultados
                 Console.WriteLine($"Cantidad de reservas obtenidas: {reservas.Count}");
 
                 return reservas;
             }
             catch (Exception ex)
             {
-                // Depuración: Log en caso de error
                 Console.WriteLine($"Error en GetReservasPorCliente: {ex.Message}");
-                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Detalle interno: {ex.InnerException.Message}");
+                }
                 throw;
             }
+
         }
     }
 }

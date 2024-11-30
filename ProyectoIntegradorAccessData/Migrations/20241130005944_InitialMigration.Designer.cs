@@ -12,8 +12,8 @@ using ProyectoIntegradorAccesData;
 namespace ProyectoIntegradorAccessData.Migrations
 {
     [DbContext(typeof(ISUSAContext))]
-    [Migration("20241128184851_innit")]
-    partial class innit
+    [Migration("20241130005944_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,9 @@ namespace ProyectoIntegradorAccessData.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CantidadRestante")
                         .HasColumnType("int");
 
                     b.Property<int?>("PedidoId")
@@ -178,8 +181,9 @@ namespace ProyectoIntegradorAccessData.Migrations
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EstadoReserva")
-                        .HasColumnType("int");
+                    b.Property<string>("EstadoReserva")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");

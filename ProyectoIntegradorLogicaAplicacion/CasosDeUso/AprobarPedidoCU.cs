@@ -71,12 +71,12 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
                 throw new KeyNotFoundException("Pedido no encontrado.");
             }
 
-            if (pedido.Estado != "Pendiente")
+            if (pedido.Estado != EstadoPedidoEnum.PENDIENTE)
             {
                 throw new InvalidOperationException("Solo se pueden aprobar pedidos en estado 'Pendiente'.");
             }
 
-            pedido.Estado = "Aprobado";
+            pedido.Estado = EstadoPedidoEnum.APROBADO;
             repoPedidos.Update(pedido);
         }
     }

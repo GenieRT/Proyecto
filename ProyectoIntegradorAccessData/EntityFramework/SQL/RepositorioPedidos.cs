@@ -98,7 +98,35 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
 
         public IEnumerable<Pedido> GetPedidosPorCliente(int clienteId)
         {
-            return _context.Pedidos.Where(p => p.ClienteId == clienteId).ToList();
+            try
+            {
+                Console.WriteLine($"Inicio del repositorio: GetPedidosPorCliente para ClienteId: {clienteId}");
+                var pedidos = _context.Pedidos
+                .Include(p => p.Cliente) // Incluye la información del cliente
+                .Include(p => p.Productos)
+                    .ThenInclude(lp => lp.Producto)
+                .Include(p => p.Productos)
+                    .ThenInclude(lp => lp.Presentacion)
+                .Include(p => p.Reservas)
+                    .ThenInclude(r => r.LineasReservas)
+                        .ThenInclude(lr => lr.Producto)
+                .Where(p => p.ClienteId == clienteId)
+                .ToList();
+
+                Console.WriteLine($"Cantidad de pedidos obtenidos: {pedidos.Count}");
+
+                return pedidos;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en GetPedidosPorCliente: {ex.Message}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Detalle interno: {ex.InnerException.Message}");
+                }
+                throw;
+            }
         }
 
        

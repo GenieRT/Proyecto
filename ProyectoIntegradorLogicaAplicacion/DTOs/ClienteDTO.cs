@@ -22,6 +22,12 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
 
         public ClienteDTO(Cliente cliente)
         {
+            if (cliente == null)
+            {
+                throw new ArgumentNullException(nameof(cliente), "El objeto cliente es nulo.");
+            }
+
+
             this.Id = cliente.Id;
             this.NumeroCliente = cliente.NumeroCliente;
             this.RazonSocial = cliente.RazonSocial;

@@ -178,8 +178,9 @@ namespace ProyectoIntegradorAccessData.Migrations
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EstadoReserva")
-                        .HasColumnType("int");
+                    b.Property<string>("EstadoReserva")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");

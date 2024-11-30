@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProyectoIntegradorAccessData.Migrations
 {
     /// <inheritdoc />
-    public partial class innit : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -115,6 +115,7 @@ namespace ProyectoIntegradorAccessData.Migrations
                     ProductoId = table.Column<int>(type: "int", nullable: false),
                     PresentacionId = table.Column<int>(type: "int", nullable: false),
                     Cantidad = table.Column<int>(type: "int", nullable: false),
+                    CantidadRestante = table.Column<int>(type: "int", nullable: false),
                     PedidoId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -146,7 +147,7 @@ namespace ProyectoIntegradorAccessData.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EstadoReserva = table.Column<int>(type: "int", nullable: false),
+                    EstadoReserva = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PedidoId = table.Column<int>(type: "int", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
                     Camion = table.Column<string>(type: "nvarchar(max)", nullable: false),

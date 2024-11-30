@@ -41,7 +41,6 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
                 throw new ArgumentException("El ID del cliente es inválido.");
             }
 
-            // Validar si el cliente existe
             var cliente = buscarClientePorId(clienteId);
             if (cliente == null)
             {
@@ -50,12 +49,15 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
 
             try
             {
-                // Obtener los pedidos y reservas
                 var pedidos = repoPedidos.GetPedidosPorCliente(clienteId) ?? new List<Pedido>();
-                var reservas = repoReservas.GetReservasPorCliente(clienteId) ?? new List<Reserva>();
+                Console.WriteLine($"Cantidad de pedidos obtenidos: {pedidos}");
 
-                // Crear el DTO con la información
-                return new ClientePedidoReservaDTO(pedidos, reservas);
+                var reservas = repoReservas.GetReservasPorCliente(clienteId) ?? new List<Reserva>();
+                Console.WriteLine($"Cantidad de reservas obtenidas: {reservas}");
+
+                var dto = new ClientePedidoReservaDTO(pedidos, reservas);
+                Console.WriteLine("DTO creado correctamente.");
+                return dto;
             }
             catch (Exception ex)
             {
