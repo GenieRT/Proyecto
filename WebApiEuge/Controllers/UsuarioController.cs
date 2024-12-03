@@ -29,7 +29,7 @@ namespace WebApi2.Controllers
             try
             {
                 RegistroCU.ActualizarContraseña(datos.Email, datos.NuevaContraseña);
-                return Ok("Proceso exitoso. Por favor, revisa tu correo para confirmar el cambio de contraseña.");
+                return Ok(new { mensaje = "Proceso exitoso. Por favor, revisa tu correo para confirmar tu contraseña." });
             }
             catch (ArgumentException ex) // Validaciones del caso de uso
             {
@@ -67,14 +67,16 @@ namespace WebApi2.Controllers
 
 
 
-
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpGet("IniciarSesion")]
-        public ActionResult Login([FromQuery] string email, [FromQuery] string pass)
+        [HttpPost("IniciarSesion")]
+        public ActionResult Login([FromBody] Dictionary<string, string> loginData)
         {
             try
             {
+                string email = loginData["email"];
+                string pass = loginData["pass"];
+
                 UsuarioDTO usuario = LoginCU.Login(email, pass);
                 string token = LoginCU.GenerarToken(usuario.Id.ToString(), usuario.Rol);
 
