@@ -1,6 +1,7 @@
 ﻿using ProyectoIntegradorLibreria.Entities;
 using ProyectoIntegradorLibreria.InterfacesRepositorios;
 using ProyectoIntegradorLogicaAplicacion.DTOs;
+using ProyectoIntegradorLogicaAplicacion.DTOs.Mapper;
 using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
 using System;
 using System.Collections.Generic;
@@ -21,12 +22,9 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
 
         public IEnumerable<ProductoDTO> ListarProductos()
         {
-           List<ProductoDTO> aRetornar = new List<ProductoDTO>();
-            foreach(Producto p in _repositorioProductos.FindAll().ToList()) 
-            { 
-                aRetornar.Add(new ProductoDTO(p));
-            }
-            return aRetornar;
+            List<Producto> productos = _repositorioProductos.FindAll().ToList();
+            
+            return ProductoMapper.ToListaDto(productos);
         }
     }
 }

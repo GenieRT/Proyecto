@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="EntityFramework\Scripts\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 

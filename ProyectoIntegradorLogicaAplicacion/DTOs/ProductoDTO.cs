@@ -10,7 +10,6 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
     public class ProductoDTO
     {
         public int Id { get; set; }
-        public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public float Costo { get; set; }
         public int StockDisponible { get; set; }
@@ -20,7 +19,6 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
         public ProductoDTO (Producto prodcuto)
         {
             Id = prodcuto.Id;
-            Nombre = prodcuto.Nombre;
             Descripcion = prodcuto.Descripcion;
             Costo = prodcuto.Costo;
             StockDisponible = prodcuto.StockDisponible;

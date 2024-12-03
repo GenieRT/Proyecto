@@ -23,8 +23,9 @@ namespace ProyectoIntegradorLibreria.Entities
 
         [Required]
         public string Contraseña { get; set; }
+       
+        [Required]    
 
-        [Required]
         public string EncriptedPassword { get; private set; }
 
         public string? ConfirmationToken { get; set; }
