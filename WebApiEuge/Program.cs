@@ -196,6 +196,7 @@ namespace WebApiEuge
             app.UseCors("AllowReactApp");
 
 
+
             //borrar despues
             app.Use(async (context, next) =>
             {
