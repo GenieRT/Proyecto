@@ -14,10 +14,12 @@ namespace ProyectoIntegrador.WebApi2.Controllers
     public class ReservaController : ControllerBase
     {
         private IRegistrarReserva _registrarReserva;
+        private IListarReservas _listarReservas;
 
-        public ReservaController(IRegistrarReserva registrarReserva)
+        public ReservaController(IRegistrarReserva registrarReserva, IListarReservas listarReservas)
         {
             _registrarReserva = registrarReserva;
+            _listarReservas = listarReservas;
         }
 
         //Registro de Reserva
@@ -36,6 +38,41 @@ namespace ProyectoIntegrador.WebApi2.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        //LISTAR RESERVAS EMPLEADO
+        [HttpGet("ReservasEmpleado")]
+
+        public IActionResult MostrarReservasEmpleado(string rol)
+        {
+            if (rol == "Empleado")
+            {
+
+                try
+                {
+                    var reservasempleado = _listarReservas.GetReservasEmplados();
+                    return Ok(reservasempleado);
+                }
+                catch (ArgumentException ex) // Excepción para parámetros inválidos
+                {
+                    return BadRequest(ex.Message);
+                }
+                catch (KeyNotFoundException ex) // Excepción para recursos no encontrados
+                {
+                    return NotFound(ex.Message);
+                }
+                catch (Exception ex) // Excepción general para errores internos
+                {
+                    return StatusCode(500, $"Error interno: {ex.Message}");
+                }
+
+
+            }
+            return BadRequest("No tienes permiso para ver estos datos");
+
+
+        }
+
 
         /*
         // Mostrar todas las reservas

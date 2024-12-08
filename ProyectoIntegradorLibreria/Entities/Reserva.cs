@@ -13,10 +13,10 @@ namespace ProyectoIntegradorLibreria.Entities
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
         public EstadoReservaEnum EstadoReserva { get; set; } 
-        public Pedido Pedido { get; set; }
+        public Pedido?Pedido { get; set; }
 
         [ForeignKey (nameof(Pedido))] public int PedidoId { get; set; }   
-        public Cliente Cliente { get; set; }
+        public Cliente ?Cliente { get; set; }
 
         [ForeignKey (nameof(Cliente))] public int ClienteId { get; set; }
         public string Camion { get; set; }

@@ -14,5 +14,7 @@ namespace ProyectoIntegradorLibreria.InterfacesRepositorios
         public Pedido GetPedidoById(int id);
         public IEnumerable<Reserva> GetReservasPorCliente(int clienteId);
 
+        public IEnumerable<Reserva> GetReservasEmplados();
+
     }
 }
