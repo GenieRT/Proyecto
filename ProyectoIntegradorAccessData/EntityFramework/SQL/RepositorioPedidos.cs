@@ -54,12 +54,14 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         {
             return _context.Usuarios.FirstOrDefault(c => c.Id == id);
         }
-        
+
         public Pedido? GetPedidoById(int pedidoId)
         {
-            return _context.Pedidos.FirstOrDefault(p => p.Id == pedidoId);
+            return _context.Pedidos
+                           .Include(p => p.Productos) // Incluye los productos relacionados
+                           .FirstOrDefault(p => p.Id == pedidoId);
         }
-        
+
         public void Update(Pedido p)
         {
             _context.Pedidos.Update(p);
@@ -78,7 +80,7 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
 
         public Pedido FindByID(int id)
         {
-            throw new NotImplementedException();
+            return _context.Pedidos.Where(ped => ped.Id == id).FirstOrDefault();
         }
 
         public void Remove(int id)

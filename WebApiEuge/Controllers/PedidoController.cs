@@ -15,13 +15,15 @@ namespace ProyectoIntegrador.WebApiVersion3.Controllers
         private IRegistrarPedido _registrarPedido;
         private IListarPedidos listarPedidosCU;
         private IAprobarPedido aprobarPedidoCU;
+        private IObtenerPedidoPorId _obtenerPedidoPorId;
 
 
-        public PedidoController(IRegistrarPedido registrarPedido, IListarPedidos listarPedidos, IAprobarPedido aprobarPedido)
+        public PedidoController(IRegistrarPedido registrarPedido, IListarPedidos listarPedidos, IAprobarPedido aprobarPedido, IObtenerPedidoPorId obtenerPedidoPorId)
         {
             _registrarPedido = registrarPedido;
             listarPedidosCU = listarPedidos;
             aprobarPedidoCU = aprobarPedido;
+            _obtenerPedidoPorId = obtenerPedidoPorId;
         }
 
         [HttpGet("PedidosYReservas")]
@@ -89,17 +91,23 @@ namespace ProyectoIntegrador.WebApiVersion3.Controllers
             if (pedidos == null || !pedidos.Any())
                 return NoContent();
             return Ok(pedidos);
-        }
-
-        // GET: api/v1/pedidos/{id}
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
-        {
-            var pedido = _repositorioPedidos.FindByID(id);
-            if (pedido == null)
-                return NotFound($"No se encontró el pedido con ID {id}");
-            return Ok(pedido);
         }*/
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult Get(int id)
+        {
+
+            try
+            {
+                return Ok(this._obtenerPedidoPorId.Ejecutar(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         // POST: api/v1/pedidos
         [HttpPost]

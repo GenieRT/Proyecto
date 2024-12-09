@@ -11,7 +11,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
     public class PedidoDTO
     {
         public int Id { get; set; }
-        public DateTime Fecha { get; set; }
+        public DateTime? Fecha { get; set; }
         public EstadoPedidoEnum? Estado { get; set; }
         public List<LineaPedidoDTO> Productos { get; set; }
         public ClienteDTO ? Cliente { get; set; }
@@ -25,6 +25,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
            this.Productos = new List<LineaPedidoDTO>();
            this.Reservas = new List<ReservaDTO>();
            this.Estado = EstadoPedidoEnum.PENDIENTE;
+           this.Fecha = DateTime.Now;
         }
         public PedidoDTO(Pedido pedido)
         {

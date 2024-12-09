@@ -15,7 +15,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
         {
             return new Pedido
             {
-                Fecha = pedido.Fecha,
+                Fecha = (DateTime)pedido.Fecha,
                 Estado = (ProyectoIntegradorLibreria.Enum.EstadoPedidoEnum)pedido.Estado,
                 ClienteId = pedido.ClienteId,
                 Productos = pedido.Productos.Select(p => new LineaPedido

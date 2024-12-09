@@ -29,7 +29,7 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
 
         public Producto FindByID(int id)
         {
-            throw new NotImplementedException();
+            return _context.Productos.FirstOrDefault(p => p.Id == id);
         }
 
         public void Remove(int id)
