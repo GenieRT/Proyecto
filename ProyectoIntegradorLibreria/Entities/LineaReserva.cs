@@ -12,8 +12,8 @@ namespace ProyectoIntegradorLibreria.Entities
         public int Id { get; set; }
         [ForeignKey(nameof(Producto))] public int ProductoId { get; set; }
 
-        public Producto Producto { get; set; }
-        public int CantidadReservada { get; set; }
+        public Producto ? Producto { get; set; }
+        public int  CantidadReservada { get; set; }
 
         public LineaReserva() { }
     }

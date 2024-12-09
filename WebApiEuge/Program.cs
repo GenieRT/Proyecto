@@ -149,6 +149,8 @@ namespace WebApiEuge
             builder.Services.AddScoped<ILogin, LoginCU>();
             builder.Services.AddScoped<IObtenerPedidoPorId, ObtenerPedidoPorIdCU>();
             builder.Services.AddScoped<IObtenerProductoPorId, ObtenerProductoPorIdCU>();
+            builder.Services.AddScoped<IListarReservas, ListarReservasCU>();
+
 
 
 

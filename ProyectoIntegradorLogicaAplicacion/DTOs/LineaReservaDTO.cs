@@ -22,7 +22,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
         {
             this.Id = lineaReserva.Id;
             this.ProductoId = lineaReserva.ProductoId;
-            this.Producto = new ProductoDTO(lineaReserva.Producto);
+           this.Producto = new ProductoDTO(lineaReserva.Producto);
             this.CantidadReservada = lineaReserva.CantidadReservada;
         }
     }

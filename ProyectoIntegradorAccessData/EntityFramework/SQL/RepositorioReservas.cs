@@ -51,7 +51,13 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
 
         public IEnumerable<Reserva> FindAll()
         {
-            throw new NotImplementedException();
+            return _context.Set<Reserva>()
+                
+                .Include(r => r.Cliente)
+                .Include(r => r.Pedido)
+                .Include(r => r.LineasReservas)
+                .OrderBy(r=>r.Id)
+                .ToList();
         }
 
         public Reserva FindByID(int id)
@@ -109,6 +115,33 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
                 throw;
             }
 
+        }
+
+        public IEnumerable<Reserva> GetReservasEmplados()
+        {
+            try
+            {
+                var reservas = _context.Reservas
+                    .Include(r => r.Cliente) // Incluye la información del cliente
+                    .Include(r => r.Pedido) // Incluye la información del pedido
+                    .Include(r => r.LineasReservas)
+                        .ThenInclude(lr => lr.Producto)
+
+                    .ToList();
+
+
+
+                return reservas;
+            }
+            catch (Exception ex)
+            {
+
+                if (ex.InnerException != null)
+                {
+
+                }
+                throw;
+            }
         }
     }
 }

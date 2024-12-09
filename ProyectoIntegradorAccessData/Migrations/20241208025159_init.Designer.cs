@@ -12,8 +12,8 @@ using ProyectoIntegradorAccesData;
 namespace ProyectoIntegradorAccessData.Migrations
 {
     [DbContext(typeof(ISUSAContext))]
-    [Migration("20241130005944_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20241208025159_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -147,10 +147,6 @@ namespace ProyectoIntegradorAccessData.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
