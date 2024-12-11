@@ -80,7 +80,7 @@ namespace WebApi2.Controllers
                 UsuarioDTO usuario = LoginCU.Login(email, pass);
                 string token = LoginCU.GenerarToken(usuario.Id.ToString(), usuario.Rol);
 
-                return Ok(new { usuario, token });
+                return Ok(new { usuario, token, role = usuario.Rol });
             }
             catch (ArgumentException ex) 
             {
