@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
 using System;
@@ -25,6 +26,7 @@ namespace ProyectoIntegradorWebApi2.Controllers
         [HttpGet(Name = "GetProductos")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "Empleado,Cliente")]
         public ActionResult Get()
         {
             try
@@ -42,6 +44,7 @@ namespace ProyectoIntegradorWebApi2.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Empleado,Cliente")]
         public IActionResult GetById(int id)
         {
             try

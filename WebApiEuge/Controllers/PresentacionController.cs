@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
 
 namespace WebApiVersion3.Controllers
@@ -17,6 +18,7 @@ namespace WebApiVersion3.Controllers
         [HttpGet(Name = "GetPresentaciones")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "Empleado,Cliente")]
         public ActionResult Get()
         {
             try

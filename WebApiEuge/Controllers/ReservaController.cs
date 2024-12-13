@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoIntegradorLibreria.Entities;
 using ProyectoIntegradorLibreria.InterfacesRepositorios;
@@ -31,6 +32,7 @@ namespace ProyectoIntegrador.WebApi2.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Cliente")]
         public IActionResult Create([FromBody]ReservaDTO reserva)
         {
             try
@@ -46,7 +48,7 @@ namespace ProyectoIntegrador.WebApi2.Controllers
 
         //LISTAR RESERVAS EMPLEADO
         [HttpGet("ReservasEmpleado")]
-
+        [Authorize(Roles = "Empleado")]
         public IActionResult MostrarReservasEmpleado(string rol)
         {
             if (rol == "Empleado")

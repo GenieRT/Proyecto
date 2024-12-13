@@ -26,7 +26,9 @@ namespace ProyectoIntegrador.WebApiVersion3.Controllers
             _obtenerPedidoPorId = obtenerPedidoPorId;
         }
 
+
         [HttpGet("PedidosYReservas")]
+        [Authorize(Roles = "Empleado,Cliente")]
         public IActionResult ObtenerPedidosYReservas(int clienteId)
         {
             try
@@ -96,6 +98,7 @@ namespace ProyectoIntegrador.WebApiVersion3.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "Empleado,Cliente")]
         public ActionResult Get(int id)
         {
 
@@ -114,6 +117,7 @@ namespace ProyectoIntegrador.WebApiVersion3.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Cliente")]
         public IActionResult Post ([FromBody] PedidoDTO pedido)
         {
             try
