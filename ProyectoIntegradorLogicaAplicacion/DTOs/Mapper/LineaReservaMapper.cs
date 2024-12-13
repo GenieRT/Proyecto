@@ -41,5 +41,37 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
             }
             return aux;
         }
+
+        public static ProductoDemandaDTO MapToProductoDemandaDTO(IEnumerable<LineaReserva> lineasReserva, Producto producto)
+        {
+            var toneladasReservadas = lineasReserva.Sum(lr => lr.CantidadReservada);
+            return new ProductoDemandaDTO
+            {
+                ProductoId = producto.Id,
+                ProductoNombre = producto.Descripcion,
+                ToneladasReservadas = toneladasReservadas,
+                StockDisponible = producto.StockDisponible,
+                AlertaProduccion = toneladasReservadas > producto.StockDisponible
+            };
+        }
+
+        public static IEnumerable<ProductoDemandaDTO> MapToProductoDemandaDTOList(IEnumerable<LineaReserva> lineasReserva, IEnumerable<Producto> productos)
+        {
+            return lineasReserva
+                .GroupBy(lr => lr.ProductoId)
+                .Select(g =>
+                {
+                    var producto = productos.FirstOrDefault(p => p.Id == g.Key);
+                    var toneladasReservadas = g.Sum(lr => lr.CantidadReservada);
+                    return new ProductoDemandaDTO
+                    {
+                        ProductoId = g.Key,
+                        ProductoNombre = producto?.Descripcion ?? "Producto no encontrado",
+                        ToneladasReservadas = toneladasReservadas,
+                        StockDisponible = producto?.StockDisponible ?? 0,
+                        AlertaProduccion = toneladasReservadas > (producto?.StockDisponible ?? 0)
+                    };
+                });
+        }
     }
 }

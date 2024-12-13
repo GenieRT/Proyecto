@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProyectoIntegradorAccessData.Migrations;
 using ProyectoIntegradorLibreria.Entities;
 using ProyectoIntegradorLibreria.Enum;
 using ProyectoIntegradorLibreria.InterfacesRepositorios;
@@ -142,6 +143,26 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
                 }
                 throw;
             }
+        }
+
+        public IEnumerable<LineaReserva> GetReservasProximaSemana()
+        {
+            // Calcular el rango de fechas para la próxima semana
+            var fechaInicio = DateTime.Now.Date.AddDays(7 - (int)DateTime.Now.DayOfWeek); // Próximo lunes
+            var fechaFin = fechaInicio.AddDays(7); // Domingo siguiente
+
+            var reservas = _context.Reservas
+                .Include(r => r.LineasReservas) 
+                .ThenInclude(lr => lr.Producto) 
+                .Where(r => r.Fecha >= fechaInicio && r.Fecha < fechaFin) 
+                .ToList();
+
+            if (!reservas.Any())
+            {
+                throw new InvalidOperationException("No se encontraron reservas para la semana próxima.");
+            }
+
+            return reservas.SelectMany(r => r.LineasReservas).ToList();
         }
     }
 }

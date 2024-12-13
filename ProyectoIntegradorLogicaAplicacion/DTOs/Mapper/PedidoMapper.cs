@@ -23,6 +23,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
                     ProductoId = p.ProductoId,
                     PresentacionId = p.PresentacionId,
                     Cantidad = p.Cantidad,
+                    CantidadRestante = p.Cantidad,
 
                 }).ToList(),
                 Reservas = pedido.Reservas.Select(r => new Reserva

@@ -15,11 +15,15 @@ namespace ProyectoIntegrador.WebApi2.Controllers
     {
         private IRegistrarReserva _registrarReserva;
         private IListarReservas _listarReservas;
+        private IObtenerReservasProximaSemana _listarReservasProximaSemana;
+        private IVerificarDemandaYProduccion _verificarDemandaProduccion;
 
-        public ReservaController(IRegistrarReserva registrarReserva, IListarReservas listarReservas)
+        public ReservaController(IRegistrarReserva registrarReserva, IListarReservas listarReservas, IObtenerReservasProximaSemana reservasProximaSemana, IVerificarDemandaYProduccion verificarDemandaYProduccion)
         {
             _registrarReserva = registrarReserva;
             _listarReservas = listarReservas;
+            _listarReservasProximaSemana = reservasProximaSemana;
+            _verificarDemandaProduccion = verificarDemandaYProduccion;
         }
 
         //Registro de Reserva
@@ -73,6 +77,59 @@ namespace ProyectoIntegrador.WebApi2.Controllers
 
         }
 
+        // Obtener productos reservados para la próxima semana
+        [HttpGet("ReservasSemanaProxima")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult GetReservasSemanaProxima()
+        {
+            try
+            {
+                // Llama al caso de uso correspondiente para obtener los productos reservados
+                var productosReservados = _listarReservasProximaSemana.Ejecutar();
+
+                if (productosReservados == null || !productosReservados.Any())
+                {
+                    return NotFound("No se encontraron productos reservados para la semana próxima.");
+                }
+
+                return Ok(productosReservados);
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores general
+                return StatusCode(500, $"Error interno: {ex.Message}");
+            }
+        }
+
+        // Verificar demanda de producción
+        [HttpGet("VerificarDemandaProduccion")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult VerificarDemandaProduccion()
+        {
+            try
+            {
+                var productosConAlerta = _verificarDemandaProduccion.Ejecutar(true);
+                if (!productosConAlerta.Any())
+                {
+                    return NotFound("No se encontraron productos con alertas de producción.");
+                }
+
+                return Ok(productosConAlerta);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error interno: {ex.Message}");
+            }
+        }
+
 
         /*
         // Mostrar todas las reservas
@@ -119,7 +176,7 @@ namespace ProyectoIntegrador.WebApi2.Controllers
             }
         }
 
-        
+
         // Actualizar una reserva existente
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

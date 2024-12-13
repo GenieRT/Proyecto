@@ -16,5 +16,7 @@ namespace ProyectoIntegradorLibreria.InterfacesRepositorios
 
         public IEnumerable<Reserva> GetReservasEmplados();
 
+        public IEnumerable<LineaReserva> GetReservasProximaSemana();
+
     }
 }
