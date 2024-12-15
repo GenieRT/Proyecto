@@ -18,7 +18,14 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         }
         public void Add(TurnoCarga t)
         {
-            throw new NotImplementedException();
+            if (t.Toneladas == 0)
+            {
+                throw new ArgumentNullException(nameof(t), "La catidad de toneladas no puede ser cero");
+            }
+
+            _context.TurnosCargas.Add(t);
+            //guardar cambios
+            _context.SaveChanges();
         }
 
         public IEnumerable<TurnoCarga> FindAll()
