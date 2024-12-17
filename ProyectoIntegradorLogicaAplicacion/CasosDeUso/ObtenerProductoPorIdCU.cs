@@ -1,4 +1,5 @@
-﻿using ProyectoIntegradorLibreria.InterfacesRepositorios;
+﻿using ProyectoIntegradorLibreria.Entities;
+using ProyectoIntegradorLibreria.InterfacesRepositorios;
 using ProyectoIntegradorLogicaAplicacion.DTOs;
 using ProyectoIntegradorLogicaAplicacion.DTOs.Mapper;
 using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
@@ -21,7 +22,12 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
         }
         public ProductoDTO Ejecutar(int id)
         {
-            return ProductoMapper.ToDto(_repoProductos.FindByID(id));
+            Producto prod = _repoProductos.FindByID(id);
+            if(prod == null)
+            {
+                throw new Exception("Producto no encontrado");
+            }
+            return ProductoMapper.ToDto(prod);
         }
     }
 }

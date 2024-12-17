@@ -35,8 +35,6 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
             try
             {
                 // Depuración: Validar datos de entrada
-                Console.WriteLine($"Creando ReservaDTO desde Reserva con Id: {reserva?.Id}");
-
                 if (reserva == null)
                 {
                     throw new ArgumentNullException(nameof(reserva), "La reserva no puede ser nula.");

@@ -23,6 +23,10 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
         public PedidoDTO Ejecutar(int id)
         {
             Pedido ped = repoPedidos.GetPedidoById(id);
+            if(ped == null)
+            {
+                throw new Exception("Pedido no encontrado");
+            }
             return PedidoMapper.ToDto(ped);
         }
     }

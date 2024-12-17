@@ -33,7 +33,7 @@ namespace ProyectoIntegrador.WebApi2.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = "Cliente")]
-        public IActionResult Create([FromBody]ReservaDTO reserva)
+        public IActionResult Post([FromBody]ReservaDTO reserva)
         {
             try
             {
@@ -84,6 +84,7 @@ namespace ProyectoIntegrador.WebApi2.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Empleado")]
         public IActionResult GetReservasSemanaProxima()
         {
             try
@@ -110,6 +111,7 @@ namespace ProyectoIntegrador.WebApi2.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Empleado")]
         public IActionResult VerificarDemandaProduccion()
         {
             try
