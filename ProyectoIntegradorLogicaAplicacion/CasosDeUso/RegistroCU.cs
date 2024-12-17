@@ -1,4 +1,5 @@
-﻿using ProyectoIntegradorLibreria.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using ProyectoIntegradorLibreria.Entities;
 using ProyectoIntegradorLibreria.InterfacesRepositorios;
 using ProyectoIntegradorLogicaAplicacion.DTOs;
 using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
@@ -14,11 +15,13 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
     {
         private IRepositorioUsuarios repoUsuarios;
         private readonly IEmailService emailService;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public RegistroCU(IRepositorioUsuarios repositorioUsuarios, IEmailService emailService)
+        public RegistroCU(IRepositorioUsuarios repositorioUsuarios, IEmailService emailService, IHttpContextAccessor httpContextAccessor)
         {
             this.repoUsuarios = repositorioUsuarios;
             this.emailService = emailService;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         public UsuarioDTO BuscarUsuarioPorEmail(string email)
@@ -47,7 +50,7 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
 
 
 
-        public void ActualizarContraseña(string email, string nuevaContraseña)
+        public void ActualizarContraseña(string email, string nuevaContraseña, HttpContext httpContext)
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(nuevaContraseña))
             {
@@ -73,7 +76,11 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
             repoUsuarios.Update(usuario);
 
             // Construir el link de confirmación
-            string confirmationLink = $"https://localhost:7218/api/Usuario/ConfirmarCambio?email={email}&token={token}";
+            //string confirmationLink = $"https://localhost:7218/api/Usuario/ConfirmarCambio?email={email}&token={token}";
+
+            // Obtener la URL base dinámicamente
+            string baseUrl = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}";
+            string confirmationLink = $"{baseUrl}/api/Usuario/ConfirmarCambio?email={email}&token={token}";
 
             // Enviar el correo con el link de confirmación
             string subject = "Confirmación de cambio de contraseña";

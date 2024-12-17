@@ -127,7 +127,7 @@ namespace WebApiEuge
                 Console.WriteLine("Swagger configurado correctamente.");
             });
 
-
+            builder.Services.AddHttpContextAccessor(); //es para url del mail
 
             // Inicialización de repositorios
             builder.Services.AddScoped<IRepositorioPedidos, RepositorioPedidos>();
