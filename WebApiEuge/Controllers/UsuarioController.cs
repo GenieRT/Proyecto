@@ -14,13 +14,15 @@ namespace WebApi2.Controllers
         private ILogin LoginCU;
         private readonly IEmailService emailService;
         private readonly ITokenService tokenService;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public UsuarioController(IRegistro registroCU, ILogin loginCU, IEmailService emailService, ITokenService tokenService)
+        public UsuarioController(IRegistro registroCU, ILogin loginCU, IEmailService emailService, ITokenService tokenService, IHttpContextAccessor httpContextAccessor)
         {
             RegistroCU = registroCU;
             LoginCU = loginCU;
             this.emailService = emailService;
             this.tokenService = tokenService;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         [HttpPut("ActualizarContraseña")]
@@ -28,7 +30,7 @@ namespace WebApi2.Controllers
         {
             try
             {
-                RegistroCU.ActualizarContraseña(datos.Email, datos.NuevaContraseña);
+                RegistroCU.ActualizarContraseña(datos.Email, datos.NuevaContraseña, httpContextAccessor.HttpContext);
                 return Ok(new { mensaje = "Proceso exitoso. Por favor, revisa tu correo para confirmar tu contraseña." });
             }
             catch (ArgumentException ex) // Validaciones del caso de uso
