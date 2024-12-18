@@ -9,6 +9,6 @@ namespace ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso
 {
     public interface IListarClientes
     {
-        IEnumerable<Usuario> Listar();
+        IEnumerable<Cliente> Listar();
     }
 }

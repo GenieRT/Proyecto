@@ -8,6 +8,8 @@ using ProyectoIntegradorLogicaAplicacion.DTOs;
 using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace ProyectoIntegrador.WebApi2.Controllers
 {
@@ -29,8 +31,9 @@ namespace ProyectoIntegrador.WebApi2.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Empleado")]
 
-        public IActionResult Create([FromBody] TurnoCargaDTO turnoCarga)
+        public IActionResult Post([FromBody] TurnoCargaDTO turnoCarga)
         {
             try
             {

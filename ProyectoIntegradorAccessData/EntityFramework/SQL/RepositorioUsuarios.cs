@@ -87,5 +87,4 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
                            .ToList();
         }
     }
-    
 }

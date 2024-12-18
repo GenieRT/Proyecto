@@ -157,6 +157,7 @@ namespace WebApiEuge
 
 
 
+
             // Configura los servicios adicionales (email services)
             builder.Services.AddScoped<IEmailService>(provider => new EmailService(
                 smtpServer: "smtp.gmail.com",            // Servidor SMTP de Gmail

@@ -10,7 +10,7 @@ namespace ProyectoIntegradorLibreria.InterfacesRepositorios
     public interface IRepositorioUsuarios : IRepositorio<Usuario>
     {
         Usuario? FindByEmail(string email);
-        IEnumerable<Cliente> GetAllClientes();
         //public Usuario Login(string email, string pass);
+        IEnumerable<Cliente> GetAllClientes();
     }
 }

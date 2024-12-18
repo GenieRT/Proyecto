@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ProyectoIntegradorLibreria.InterfacesRepositorios;
+using ProyectoIntegradorLogicaAplicacion.CasosDeUso;
 using ProyectoIntegradorLogicaAplicacion.InterfacesCasosDeUso;
 
 namespace WebApi2.Controllers
@@ -9,11 +9,12 @@ namespace WebApi2.Controllers
     [ApiController]
     public class ClienteController : ControllerBase
     {
-        private readonly IListarClientes _listarClientesCU;
+        private IListarClientes _listarClientesCU;
 
-        public ClienteController(IListarClientes listarClientesCU)
+
+        public ClienteController(IListarClientes listarClientes)
         {
-            _listarClientesCU = listarClientesCU;
+            _listarClientesCU = listarClientes;
         }
 
         [HttpGet]
@@ -25,13 +26,9 @@ namespace WebApi2.Controllers
                 var clientes = _listarClientesCU.Listar();
                 return Ok(clientes);
             }
-            catch (InvalidOperationException ex)
-            {
-                return StatusCode(500, $"Error de infraestructura: {ex.Message}");
-            }
             catch (Exception ex)
             {
-                return StatusCode(400, $"Error: {ex.Message}");
+                return StatusCode(500, $"Error interno del servidor: {ex.Message}");
             }
         }
     }
