@@ -73,5 +73,19 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Cliente> GetAllClientes()
+        {
+            if (_context == null)
+            {
+                throw new InvalidOperationException("El contexto de la base de datos no está disponible.");
+            }
+
+            return _context.Usuarios
+                           .Where(u => u.Rol == "Cliente")
+                           .Cast<Cliente>()
+                           .ToList();
+        }
     }
+    
 }
