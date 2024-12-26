@@ -11,8 +11,12 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
    public class TurnoCargaDTO
     {
         public int Id { get; set; }
-        public DateTime Fecha { get; set; }
+        public DateTime FechaInicioSemana { get; set; }
+        public DateTime FechaFinSemana { get; set; }
+
         public int Toneladas { get; set; }
+
+        public int ToneladasAcumuladas { get; set; }
 
         public TurnoCargaDTO() { }
 
@@ -28,9 +32,10 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
                     throw new ArgumentNullException(nameof(turnoCarga), "El turno no puede ser nulo.");
                 }
 
-                
-                Fecha = turnoCarga.Fecha;
+                FechaInicioSemana = turnoCarga.FechaInicioSemana;
+                FechaFinSemana = turnoCarga.FechaFinSemana;
                 Toneladas = turnoCarga.Toneladas;
+                ToneladasAcumuladas = turnoCarga.Toneladas;
             }
             catch (Exception ex)
             {

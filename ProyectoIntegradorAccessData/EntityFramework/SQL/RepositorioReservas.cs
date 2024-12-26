@@ -44,10 +44,32 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
                 throw new InvalidOperationException("El pedido no está aprobado o ya está cerrado.");
             }
 
+            // Calcula toneladas totales de la reserva
+            var toneladasTotalesReservadas = reserva.CalcularToneladasTotales();
+
+            // Busca el turno de carga correspondiente
+            var repositorioTurnos = new RepositorioTurnosCarga();
+            var turnoCarga = repositorioTurnos.ObtenerTurnoPorFecha(reserva.Fecha);
+
+            if (turnoCarga == null)
+            {
+                throw new InvalidOperationException("No se encontró un turno de carga para la fecha seleccionada.");
+            }
+
+            // Verifica que las toneladas reservadas no excedan la capacidad disponible
+            if (turnoCarga.ToneladasAcumuladas + toneladasTotalesReservadas > turnoCarga.Toneladas)
+            {
+                throw new InvalidOperationException("No hay suficiente capacidad disponible en el turno de carga para esta reserva.");
+            }
+
             reserva.ProcesarReserva(ped);
+
+            // Actualizar las toneladas acumuladas del turno de carga
+            turnoCarga.ActualizarToneladasAcumuladas(toneladasTotalesReservadas);
+
             _context.Reservas.Add(reserva);
-            //guardar cambios
             _context.SaveChanges();
+
         }
 
         public IEnumerable<Reserva> FindAll()

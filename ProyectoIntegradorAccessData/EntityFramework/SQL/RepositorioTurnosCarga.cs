@@ -28,6 +28,12 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             _context.SaveChanges();
         }
 
+        public TurnoCarga ObtenerTurnoPorFecha(DateTime fecha)
+        {
+            return _context.TurnosCargas
+                .FirstOrDefault(t => fecha >= t.FechaInicioSemana && fecha <= t.FechaFinSemana);
+        }
+
         public IEnumerable<TurnoCarga> FindAll()
         {
             throw new NotImplementedException();

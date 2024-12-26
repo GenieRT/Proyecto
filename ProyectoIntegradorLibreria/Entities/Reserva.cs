@@ -81,5 +81,11 @@ namespace ProyectoIntegradorLibreria.Entities
                 Pedido.CerrarPedido();
             }
         }
+
+        public int CalcularToneladasTotales()
+        {
+            return LineasReservas.Sum(lr => lr.CantidadReservada);
+        }
     }
+
 }

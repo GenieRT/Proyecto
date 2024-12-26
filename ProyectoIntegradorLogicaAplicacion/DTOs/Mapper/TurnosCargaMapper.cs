@@ -13,8 +13,10 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
         {
             return new TurnoCarga
             {
-                Fecha = turnoCarga.Fecha,
+                FechaInicioSemana = turnoCarga.FechaInicioSemana,
+                FechaFinSemana = turnoCarga.FechaFinSemana,
                 Toneladas = turnoCarga.Toneladas,
+                ToneladasAcumuladas = turnoCarga.Toneladas
                 
             };
         }
@@ -25,8 +27,10 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
         {
             return new TurnoCargaDTO()
             {
-                Fecha = turnoCarga.Fecha,
+                FechaInicioSemana = turnoCarga.FechaInicioSemana,
+                FechaFinSemana = turnoCarga.FechaFinSemana,
                 Toneladas = turnoCarga.Toneladas,
+                ToneladasAcumuladas = turnoCarga.Toneladas
             };
         }
 
