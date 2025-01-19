@@ -16,14 +16,16 @@ namespace ProyectoIntegrador.WebApiVersion3.Controllers
         private IListarPedidos listarPedidosCU;
         private IAprobarPedido aprobarPedidoCU;
         private IObtenerPedidoPorId _obtenerPedidoPorId;
+        private IListarPedidosPendientes _listarPedidosPendientesCU;
 
 
-        public PedidoController(IRegistrarPedido registrarPedido, IListarPedidos listarPedidos, IAprobarPedido aprobarPedido, IObtenerPedidoPorId obtenerPedidoPorId)
+        public PedidoController(IRegistrarPedido registrarPedido, IListarPedidos listarPedidos, IAprobarPedido aprobarPedido, IObtenerPedidoPorId obtenerPedidoPorId, IListarPedidosPendientes listarPedidosPendientesCU)
         {
             _registrarPedido = registrarPedido;
             listarPedidosCU = listarPedidos;
             aprobarPedidoCU = aprobarPedido;
             _obtenerPedidoPorId = obtenerPedidoPorId;
+            _listarPedidosPendientesCU = listarPedidosPendientesCU;
         }
 
 
@@ -50,9 +52,28 @@ namespace ProyectoIntegrador.WebApiVersion3.Controllers
             }
         }
 
+        [HttpGet("PedidosPendientes")]
+        [Authorize(Roles = "Empleado")]
+        public IActionResult GetPedidosPendientes()
+        {
+            try
+            {
+                var pedidosPendientes = _listarPedidosPendientesCU.listar();
+                return Ok(pedidosPendientes);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { mensaje = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { mensaje = "Error interno del servidor", detalle = ex.Message });
+            }
+        }
 
 
-        [HttpPut("AprobarPedido")]
+
+            [HttpPut("AprobarPedido")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]

@@ -12,8 +12,8 @@ using ProyectoIntegradorAccesData;
 namespace ProyectoIntegradorAccessData.Migrations
 {
     [DbContext(typeof(ISUSAContext))]
-    [Migration("20241208025159_init")]
-    partial class init
+    [Migration("20250119200340_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -209,10 +209,16 @@ namespace ProyectoIntegradorAccessData.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("Fecha")
+                    b.Property<DateTime>("FechaFinSemana")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaInicioSemana")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Toneladas")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ToneladasAcumuladas")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

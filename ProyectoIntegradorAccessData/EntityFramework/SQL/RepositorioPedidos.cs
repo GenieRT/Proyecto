@@ -131,8 +131,17 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             }
         }
 
-       
+        public IEnumerable<Pedido> ListarPedidosPendientes()
+        {
+            try
+            {
+                return _context.Pedidos.Where(p => p.Estado == 0).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocurrió un error al listar los pedidos pendientes: " + ex.Message);
+            }
+        }
 
-        
     }
 }
