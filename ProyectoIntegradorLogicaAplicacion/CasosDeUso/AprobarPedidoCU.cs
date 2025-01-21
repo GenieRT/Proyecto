@@ -44,19 +44,6 @@ namespace ProyectoIntegradorLogicaAplicacion.CasosDeUso
             return pedido;
         }
         
-        /*public bool AprobarPedido(Pedido p)
-        {
-            if (p.Estado != EstadoPedidoEnum.PENDIENTE)
-            {
-                throw new InvalidOperationException("Solo se pueden aprobar pedidos en estado 'Pendiente'.");
-            }
-
-            //actualizo el pedido
-            p.Estado = EstadoPedidoEnum.APROBADO;
-            repoPedidos.Update(p);
-
-            return true;
-        }*/
 
         public void AprobarPedidoPorId(int pedidoId)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoIntegradorLibreria.InterfacesRepositorios
 {
-    public interface IRepositorioPedidos : IRepositorio<Pedido>
+    public interface IRepositorioPedidos : IRepositorioAdd<Pedido>, IRepositorioFindById<Pedido>, IRepositorioUpdate<Pedido>
     {
 
         public Usuario? GetClienteById(int clienteId);

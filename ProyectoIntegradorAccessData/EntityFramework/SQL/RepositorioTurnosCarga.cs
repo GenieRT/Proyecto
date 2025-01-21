@@ -34,24 +34,5 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
                 .FirstOrDefault(t => fecha >= t.FechaInicioSemana && fecha <= t.FechaFinSemana);
         }
 
-        public IEnumerable<TurnoCarga> FindAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public TurnoCarga FindByID(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(TurnoCarga t)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

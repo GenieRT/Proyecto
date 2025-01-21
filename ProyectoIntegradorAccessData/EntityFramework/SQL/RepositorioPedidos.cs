@@ -73,30 +73,16 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             return _context.Presentacions.FirstOrDefault(p => p.Id == id);
         }
 
-        public IEnumerable<Pedido> FindAll()
-        {
-            throw new NotImplementedException();
-        }
 
         public Pedido FindByID(int id)
         {
             return _context.Pedidos.Where(ped => ped.Id == id).FirstOrDefault();
         }
 
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        
-
         public Producto GetProductoById(int id)
         {
             return _context.Productos.FirstOrDefault(p => p.Id == id);
         }
-
-      
-
 
         public IEnumerable<Pedido> GetPedidosPorCliente(int clienteId)
         {

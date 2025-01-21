@@ -17,19 +17,6 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             _context = new ISUSAContext();
         }
 
-
-        public IEnumerable<Usuario> FindAll()
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Update(Usuario usuario)
         {
             _context.Usuarios.Update(usuario);
@@ -42,10 +29,6 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             return _context.Usuarios.Find(id);
         }
 
-        Usuario IRepositorio<Usuario>.FindByID(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         public bool FindBy(string email, string pass)
         {

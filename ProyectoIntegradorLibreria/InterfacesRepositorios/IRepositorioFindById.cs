@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProyectoIntegradorLibreria.InterfacesRepositorios
 {
-    public interface IRepositorio <T>
+    public interface IRepositorioFindById <T>
     {
-        IEnumerable<T> FindAll();
         T FindByID(int id);
-        void Add(T t);
-        void Remove(int id);
-        void Update(T t);
     }
 }

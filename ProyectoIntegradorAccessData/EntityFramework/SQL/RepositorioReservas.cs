@@ -83,10 +83,7 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
                 .ToList();
         }
 
-        public Reserva FindByID(int id)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public Usuario GetClienteById(int id)
         {
@@ -98,16 +95,6 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             return _context.Pedidos
                    .Include(p => p.Productos)  
                    .FirstOrDefault(p => p.Id == id);
-        }
-
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Reserva t)
-        {
-            throw new NotImplementedException();
         }
 
         public IEnumerable<Reserva> GetReservasPorCliente(int clienteId)

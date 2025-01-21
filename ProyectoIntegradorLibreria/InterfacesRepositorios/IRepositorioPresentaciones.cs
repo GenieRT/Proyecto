@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoIntegradorLibreria.InterfacesRepositorios
 {
-    public interface IRepositorioPresentaciones : IRepositorio<Presentacion>
+    public interface IRepositorioPresentaciones : IRepositorioFindAll<Presentacion>
     {
     }
 }

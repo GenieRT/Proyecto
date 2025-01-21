@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoIntegradorLibreria.InterfacesRepositorios
 {
-    public interface IRepositorioUsuarios : IRepositorio<Usuario>
+    public interface IRepositorioUsuarios : IRepositorioUpdate<Usuario>, IRepositorioFindById<Usuario>
     {
         Usuario? FindByEmail(string email);
         //public Usuario Login(string email, string pass);

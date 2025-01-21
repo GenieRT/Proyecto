@@ -17,10 +17,6 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         {
             _context = new ISUSAContext();
         }
-        public void Add(Producto t)
-        {
-            throw new NotImplementedException();
-        }
 
         public IEnumerable<Producto> FindAll()
         {
@@ -32,14 +28,5 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
             return _context.Productos.FirstOrDefault(p => p.Id == id);
         }
 
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Producto t)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

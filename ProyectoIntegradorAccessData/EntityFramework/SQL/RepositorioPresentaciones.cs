@@ -16,29 +16,11 @@ namespace ProyectoIntegradorAccesData.EntityFramework.SQL
         {
             _context = new ISUSAContext();
         }
-        public void Add(Presentacion t)
-        {
-            throw new NotImplementedException();
-        }
 
         public IEnumerable<Presentacion> FindAll()
         {
             return _context.Presentacions;
         }
 
-        public Presentacion FindByID(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Presentacion t)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
