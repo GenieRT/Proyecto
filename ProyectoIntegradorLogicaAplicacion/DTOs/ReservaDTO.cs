@@ -25,13 +25,15 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
 
         public List<LineaReservaDTO> LineasReservas { get; set; }
 
-        public ReservaDTO() 
+        public ReservaDTO()
         {
-           this.EstadoReserva = EstadoReservaEnum.SIN_ESTADO;
+            this.EstadoReserva = EstadoReservaEnum.SIN_ESTADO;
         }
 
         public ReservaDTO(Reserva reserva)
         {
+            Console.WriteLine(reserva.ClienteId + "-" +  reserva.Id); //aca salta el error de overflow que te mande antes
+
             try
             {
                 // Depuración: Validar datos de entrada
@@ -40,19 +42,19 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
                     throw new ArgumentNullException(nameof(reserva), "La reserva no puede ser nula.");
                 }
 
-            Id = reserva.Id;
-            Fecha = reserva.Fecha;
-            EstadoReserva = reserva.EstadoReserva;
-            Pedido = new PedidoDTO(reserva.Pedido);
-            PedidoId = reserva.PedidoId;
-            Cliente = new ClienteDTO(reserva.Cliente);
-            ClienteId = reserva.ClienteId;
-            Camion = reserva.Camion;
-            Chofer = reserva.Chofer;
-            if (reserva?.LineasReservas != null)
-            {
-                this.LineasReservas = reserva.LineasReservas.Select(lp => new LineaReservaDTO(lp)).ToList();
-            }
+                Id = reserva.Id;
+                Fecha = reserva.Fecha;
+                EstadoReserva = reserva.EstadoReserva;
+                Pedido = new PedidoDTO(reserva.Pedido);
+                PedidoId = reserva.PedidoId;
+                Cliente = new ClienteDTO(reserva.Cliente);
+                ClienteId = reserva.ClienteId;
+                Camion = reserva.Camion;
+                Chofer = reserva.Chofer;
+                if (reserva?.LineasReservas != null)
+                {
+                    this.LineasReservas = reserva.LineasReservas.Select(lp => new LineaReservaDTO(lp)).ToList();
+                }
 
 
                 // Depuración: Confirmar transformación

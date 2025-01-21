@@ -57,16 +57,4 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
 
             };
         }
-        /*
-            public static IEnumerable<AutorDto> ToListaDto(IEnumerable<Autor> autores)
-            {
-                List<AutorDto> aux = new List<AutorDto>();
-                foreach (var autor in autores)
-                {
-                    AutorDto autorDto = ToDto(autor);
-                    aux.Add(autorDto);
-                }
-                return aux;
-            }
-        }*/
     } }

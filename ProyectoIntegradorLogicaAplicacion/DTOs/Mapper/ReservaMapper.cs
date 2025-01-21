@@ -40,8 +40,27 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
                 ClienteId = reserva.ClienteId,
                 Camion = reserva.Camion,
                 Chofer = reserva.Chofer,
-                LineasReservas = (List<LineaReservaDTO>)LineaReservaMapper.ToListaDto(reserva.LineasReservas)
+                LineasReservas = reserva.LineasReservas.Select(lr => new LineaReservaDTO
+                {
+                    Id = lr.Id,
+                    ProductoId = lr.ProductoId,
+                    Producto = lr.Producto != null
+                        ? ProductoMapper.ToDto(lr.Producto) // Usa ProductoMapper para mapear correctamente
+                        : new ProductoDTO { Descripcion = "Producto desconocido" }, // Valor predeterminado para productos nulos
+                    CantidadReservada = lr.CantidadReservada
+                }).ToList()
 
+
+                /*
+                Id = reserva.Id,
+                Fecha = reserva.Fecha,
+                EstadoReserva = reserva.EstadoReserva,
+                PedidoId = reserva.PedidoId,
+                ClienteId = reserva.ClienteId,
+                Camion = reserva.Camion,
+                Chofer = reserva.Chofer,
+                LineasReservas = (List<LineaReservaDTO>)LineaReservaMapper.ToListaDto(reserva.LineasReservas)
+                */
             };
         }
 
