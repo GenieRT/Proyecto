@@ -35,7 +35,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs
                 FechaInicioSemana = turnoCarga.FechaInicioSemana;
                 FechaFinSemana = turnoCarga.FechaFinSemana;
                 Toneladas = turnoCarga.Toneladas;
-                ToneladasAcumuladas = turnoCarga.Toneladas;
+                ToneladasAcumuladas = 0;
             }
             catch (Exception ex)
             {

@@ -16,7 +16,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
                 FechaInicioSemana = turnoCarga.FechaInicioSemana,
                 FechaFinSemana = turnoCarga.FechaFinSemana,
                 Toneladas = turnoCarga.Toneladas,
-                ToneladasAcumuladas = turnoCarga.Toneladas
+                ToneladasAcumuladas = 0
                 
             };
         }
@@ -30,7 +30,7 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
                 FechaInicioSemana = turnoCarga.FechaInicioSemana,
                 FechaFinSemana = turnoCarga.FechaFinSemana,
                 Toneladas = turnoCarga.Toneladas,
-                ToneladasAcumuladas = turnoCarga.Toneladas
+                ToneladasAcumuladas = 0
             };
         }
 
