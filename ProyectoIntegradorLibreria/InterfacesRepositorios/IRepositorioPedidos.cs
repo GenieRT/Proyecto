@@ -14,7 +14,7 @@ namespace ProyectoIntegradorLibreria.InterfacesRepositorios
         IEnumerable<Pedido> GetPedidosPorCliente(int clienteId);
         public Presentacion GetPresentacionById(int id);
         public Pedido? GetPedidoById(int pedidoId);
-
+        public IEnumerable<Pedido> ListarPedidosPendientes();
         public Producto GetProductoById(int id);
         
         

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace WebApiEuge
 {
@@ -154,6 +155,8 @@ namespace WebApiEuge
             builder.Services.AddScoped<IVerificarDemandaYProduccion, VerificarDemandaProduccionCU>();
             builder.Services.AddScoped<IRegistrarTurnoCarga, RegistraTurnoCargaCU>();
             builder.Services.AddScoped<IListarClientes, ListarClientesCU>();
+            builder.Services.AddScoped<IListarPedidosPendientes, ListarPedidosPendientesCU>();
+
 
 
 
@@ -201,6 +204,20 @@ namespace WebApiEuge
             // Aplicar la política de CORS
             app.UseCors("AllowReactApp");
 
+            app.UseExceptionHandler(errorApp =>
+            {
+                errorApp.Run(async context =>
+                {
+                    context.Response.StatusCode = 500;
+                    context.Response.ContentType = "application/json";
+                    var error = context.Features.Get<IExceptionHandlerFeature>();
+                    if (error != null)
+                    {
+                        var ex = error.Error;
+                        await context.Response.WriteAsync(new { error = ex.Message }.ToString());
+                    }
+                });
+            });
 
 
             //borrar despues

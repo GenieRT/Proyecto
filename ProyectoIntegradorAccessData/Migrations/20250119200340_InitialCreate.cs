@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProyectoIntegradorAccessData.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -46,8 +46,10 @@ namespace ProyectoIntegradorAccessData.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Toneladas = table.Column<int>(type: "int", nullable: false)
+                    FechaInicioSemana = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaFinSemana = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Toneladas = table.Column<int>(type: "int", nullable: false),
+                    ToneladasAcumuladas = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

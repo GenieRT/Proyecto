@@ -28,9 +28,24 @@ namespace ProyectoIntegradorLogicaAplicacion.DTOs.Mapper
             {
                 Id = linea.Id,
                 ProductoId = linea.ProductoId,
+                Producto = linea.Producto != null ? ProductoMapper.ToDto(linea.Producto) : new ProductoDTO { Descripcion = "Producto desconocido" },
+                PresentacionId = linea.PresentacionId,
+                Presentacion = linea.Presentacion != null ? new PresentacionDTO
+                {
+                    Id = linea.Presentacion.Id,
+                    Descripcion = linea.Presentacion.Descripcion,
+                    Unidad = linea.Presentacion.Unidad
+                } : new PresentacionDTO { Id = 0, Descripcion = "Presentación desconocida", Unidad = "N/A" },
+                Cantidad = linea.Cantidad,
+                CantidadRestante = linea.CantidadRestante
+
+                /*
+                Id = linea.Id,
+                ProductoId = linea.ProductoId,
                 PresentacionId = linea.PresentacionId,
                 Cantidad = linea.Cantidad,
                 CantidadRestante = linea.Cantidad
+                */
             };
         }
 
